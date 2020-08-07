@@ -16,13 +16,8 @@ class HTTPService {
 	/// The shared `URLSession` for all HTTP services.
 	static let urlSession = URLSession(configuration: urlSessionConfiguration)
 	
-	/// The shared operation queue for all HTTP services.
-	static let queue: OperationQueue = {
-		let queue = OperationQueue()
-		queue.maxConcurrentOperationCount = 1
-		return queue
-	}()
-	
 	class Users { }
+	
+	class Image { }
 	
 }

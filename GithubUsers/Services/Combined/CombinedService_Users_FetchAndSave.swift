@@ -13,7 +13,7 @@ extension CombinedService.Users {
 	/// Fetches a list of users over the network, optionally purges all records in Core Data, then saves the results to Core Data.
 	/// If successful, the result holds either the last user ID in the list or `nil` if no users were returned, suggesting that the last page
 	/// has been reached; otherwise, the result holds an `Error`.
-	class RemoteFetchAndLocalSave: Operation<Int?, Error> {
+	class FetchAndSave: Operation<Int?, Error> {
 		
 		let userID: Int
 		let shouldPurgeCache: Bool
@@ -35,7 +35,7 @@ extension CombinedService.Users {
 		/// 	- coreDataQueue: The queue to which the Core Data save operation will be dispatched.
 		///		- context: The `NSManagedObjectContext` to be used in creating and saving the cache objects.
 		///		- completion: Executed when the operation finishes.
-		init(since userID: Int, shouldPurgeCache: Bool, urlSession: URLSession = HTTPService.urlSession, httpServiceQueue: OperationQueue = HTTPService.queue, coreDataQueue: OperationQueue = CoreDataStack.queue, context: NSManagedObjectContext = CoreDataStack.shared.newBackgroundContext(), completion: OperationCompletionBlock?) {
+		init(since userID: Int, shouldPurgeCache: Bool, urlSession: URLSession = HTTPService.urlSession, httpServiceQueue: OperationQueue = Queues.http, coreDataQueue: OperationQueue = Queues.coreData, context: NSManagedObjectContext = CoreDataStack.shared.newBackgroundContext(), completion: OperationCompletionBlock?) {
 			self.userID = userID
 			self.shouldPurgeCache = shouldPurgeCache
 			self.urlSession = urlSession
@@ -47,8 +47,8 @@ extension CombinedService.Users {
 		
 		override func cancel() {
 			super.cancel()
-			purgeService?.cancel()
 			fetchService?.cancel()
+			purgeService?.cancel()
 			saveService?.cancel()
 		}
 		

@@ -29,7 +29,7 @@ class UserListItemCellDefault: UITableViewCell, UserListItemCell {
 	
 	func setupStructure() {
 		let viewFromNib = viewFromOwnedNib(named: String(describing: type(of: self)))
-		addSubviewAndFill(viewFromNib)
+		contentView.addSubviewAndFill(viewFromNib)
 	}
 	
 	func setUserListItem(_ model: UserListItem?) {

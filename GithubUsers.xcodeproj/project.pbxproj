@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D60689624DD415800768799 /* CombinedService_Image_FetchAndSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D60689524DD415800768799 /* CombinedService_Image_FetchAndSave.swift */; };
+		2D60689824DD426500768799 /* CoreDataService_Image_Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D60689724DD426500768799 /* CoreDataService_Image_Fetch.swift */; };
+		2D60689A24DD561C00768799 /* HTTPService_Image_Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D60689924DD561C00768799 /* HTTPService_Image_Fetch.swift */; };
+		2D60689C24DD58C700768799 /* CoreDataService_Image_Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D60689B24DD58C700768799 /* CoreDataService_Image_Save.swift */; };
+		2D60689E24DD6E7500768799 /* Queues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D60689D24DD6E7500768799 /* Queues.swift */; };
 		2D7EDE4424DA660700E7BFDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE4324DA660700E7BFDD /* AppDelegate.swift */; };
 		2D7EDE4624DA660700E7BFDD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE4524DA660700E7BFDD /* SceneDelegate.swift */; };
 		2D7EDE4B24DA660700E7BFDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D7EDE4924DA660700E7BFDD /* Main.storyboard */; };
 		2D7EDE4D24DA660900E7BFDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D7EDE4C24DA660900E7BFDD /* Assets.xcassets */; };
 		2D7EDE5024DA660900E7BFDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D7EDE4E24DA660900E7BFDD /* LaunchScreen.storyboard */; };
-		2D7EDE6C24DA66F000E7BFDD /* HTTPService+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE6B24DA66F000E7BFDD /* HTTPService+Image.swift */; };
 		2D7EDE6E24DA677F00E7BFDD /* HTTPServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE6D24DA677F00E7BFDD /* HTTPServiceError.swift */; };
-		2D7EDE7024DA691C00E7BFDD /* HTTPService+UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE6F24DA691C00E7BFDD /* HTTPService+UserList.swift */; };
 		2D7EDE7224DA69B800E7BFDD /* GithubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE7124DA69B800E7BFDD /* GithubAPI.swift */; };
 		2D7EDE7424DA6B2000E7BFDD /* RawUserListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE7324DA6B2000E7BFDD /* RawUserListItem.swift */; };
 		2D7EDE7624DA6B8100E7BFDD /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE7524DA6B8100E7BFDD /* HTTPMethod.swift */; };
@@ -24,11 +27,9 @@
 		2D7EDE8424DA852600E7BFDD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8224DA852600E7BFDD /* Model.xcdatamodeld */; };
 		2D7EDE8824DA86DA00E7BFDD /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8724DA86DA00E7BFDD /* CoreDataStack.swift */; };
 		2D7EDE8A24DA8D3500E7BFDD /* CoreDataServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8924DA8D3500E7BFDD /* CoreDataServiceError.swift */; };
-		2D7EDE8C24DA8E0F00E7BFDD /* CoreDataService+UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8B24DA8E0F00E7BFDD /* CoreDataService+UserList.swift */; };
 		2D7EDE8E24DA8E7E00E7BFDD /* UserListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8D24DA8E7E00E7BFDD /* UserListItem.swift */; };
 		2D7EDE9224DA97B000E7BFDD /* CoreDataService+UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9124DA97B000E7BFDD /* CoreDataService+UserProfile.swift */; };
 		2D7EDE9424DA9C8000E7BFDD /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9324DA9C8000E7BFDD /* HTTPService.swift */; };
-		2D7EDE9624DACE8600E7BFDD /* CoreDataService+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9524DACE8600E7BFDD /* CoreDataService+Image.swift */; };
 		2D7EDEA924DAD4FE00E7BFDD /* UserListFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9B24DAD4FE00E7BFDD /* UserListFooterView.xib */; };
 		2D7EDEAC24DAD4FE00E7BFDD /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9E24DAD4FE00E7BFDD /* UserListView.swift */; };
 		2D7EDEAD24DAD4FE00E7BFDD /* UserListViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9F24DAD4FE00E7BFDD /* UserListViewController+TableView.swift */; };
@@ -76,6 +77,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D60689524DD415800768799 /* CombinedService_Image_FetchAndSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedService_Image_FetchAndSave.swift; sourceTree = "<group>"; };
+		2D60689724DD426500768799 /* CoreDataService_Image_Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService_Image_Fetch.swift; sourceTree = "<group>"; };
+		2D60689924DD561C00768799 /* HTTPService_Image_Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService_Image_Fetch.swift; sourceTree = "<group>"; };
+		2D60689B24DD58C700768799 /* CoreDataService_Image_Save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService_Image_Save.swift; sourceTree = "<group>"; };
+		2D60689D24DD6E7500768799 /* Queues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queues.swift; sourceTree = "<group>"; };
 		2D7EDE4024DA660700E7BFDD /* GithubUsers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubUsers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D7EDE4324DA660700E7BFDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D7EDE4524DA660700E7BFDD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,9 +91,7 @@
 		2D7EDE5124DA660900E7BFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D7EDE5624DA660900E7BFDD /* GithubUsersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubUsersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D7EDE5C24DA660900E7BFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2D7EDE6B24DA66F000E7BFDD /* HTTPService+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPService+Image.swift"; sourceTree = "<group>"; };
 		2D7EDE6D24DA677F00E7BFDD /* HTTPServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPServiceError.swift; sourceTree = "<group>"; };
-		2D7EDE6F24DA691C00E7BFDD /* HTTPService+UserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPService+UserList.swift"; sourceTree = "<group>"; };
 		2D7EDE7124DA69B800E7BFDD /* GithubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPI.swift; sourceTree = "<group>"; };
 		2D7EDE7324DA6B2000E7BFDD /* RawUserListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawUserListItem.swift; sourceTree = "<group>"; };
 		2D7EDE7524DA6B8100E7BFDD /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -97,11 +101,9 @@
 		2D7EDE8324DA852600E7BFDD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		2D7EDE8724DA86DA00E7BFDD /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		2D7EDE8924DA8D3500E7BFDD /* CoreDataServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceError.swift; sourceTree = "<group>"; };
-		2D7EDE8B24DA8E0F00E7BFDD /* CoreDataService+UserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataService+UserList.swift"; sourceTree = "<group>"; };
 		2D7EDE8D24DA8E7E00E7BFDD /* UserListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItem.swift; sourceTree = "<group>"; };
 		2D7EDE9124DA97B000E7BFDD /* CoreDataService+UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataService+UserProfile.swift"; sourceTree = "<group>"; };
 		2D7EDE9324DA9C8000E7BFDD /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
-		2D7EDE9524DACE8600E7BFDD /* CoreDataService+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataService+Image.swift"; sourceTree = "<group>"; };
 		2D7EDE9B24DAD4FE00E7BFDD /* UserListFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListFooterView.xib; sourceTree = "<group>"; };
 		2D7EDE9E24DAD4FE00E7BFDD /* UserListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		2D7EDE9F24DAD4FE00E7BFDD /* UserListViewController+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserListViewController+TableView.swift"; sourceTree = "<group>"; };
@@ -216,11 +218,7 @@
 		2D7EDE7C24DA75C800E7BFDD /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				2D7EDE8024DA84A900E7BFDD /* CoreDataService.swift */,
-				2D7EDE9524DACE8600E7BFDD /* CoreDataService+Image.swift */,
-				2D7EDE8B24DA8E0F00E7BFDD /* CoreDataService+UserList.swift */,
 				2D7EDE9124DA97B000E7BFDD /* CoreDataService+UserProfile.swift */,
-				2D7EDE8924DA8D3500E7BFDD /* CoreDataServiceError.swift */,
 				2D7EDE8724DA86DA00E7BFDD /* CoreDataStack.swift */,
 				2D7EDE8224DA852600E7BFDD /* Model.xcdatamodeld */,
 			);
@@ -290,12 +288,11 @@
 			children = (
 				2D7EDE7124DA69B800E7BFDD /* GithubAPI.swift */,
 				2D7EDE7524DA6B8100E7BFDD /* HTTPMethod.swift */,
+				2D60689924DD561C00768799 /* HTTPService_Image_Fetch.swift */,
+				2D7EDEE524DAF62F00E7BFDD /* HTTPService_Users_Fetch.swift */,
 				2D7EDE9324DA9C8000E7BFDD /* HTTPService.swift */,
-				2D7EDE6B24DA66F000E7BFDD /* HTTPService+Image.swift */,
-				2D7EDE6F24DA691C00E7BFDD /* HTTPService+UserList.swift */,
 				2D7EDE7724DA731D00E7BFDD /* HTTPService+UserProfile.swift */,
 				2D7EDE6D24DA677F00E7BFDD /* HTTPServiceError.swift */,
-				2D7EDEE524DAF62F00E7BFDD /* HTTPService_Users_Fetch.swift */,
 			);
 			path = HTTP;
 			sourceTree = "<group>";
@@ -303,8 +300,12 @@
 		2D7EDF0124DC200400E7BFDD /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				2D7EDEF324DB27FF00E7BFDD /* CoreDataService_Users_Save.swift */,
 				2D7EDEFB24DB4EA200E7BFDD /* CoreDataService_AllRecords_Purge.swift */,
+				2D60689724DD426500768799 /* CoreDataService_Image_Fetch.swift */,
+				2D60689B24DD58C700768799 /* CoreDataService_Image_Save.swift */,
+				2D7EDEF324DB27FF00E7BFDD /* CoreDataService_Users_Save.swift */,
+				2D7EDE8024DA84A900E7BFDD /* CoreDataService.swift */,
+				2D7EDE8924DA8D3500E7BFDD /* CoreDataServiceError.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -314,6 +315,7 @@
 			children = (
 				2D7EDEF524DB2E0D00E7BFDD /* CombinedService.swift */,
 				2D7EDEF724DB2E3600E7BFDD /* CombinedService_Users_FetchAndSave.swift */,
+				2D60689524DD415800768799 /* CombinedService_Image_FetchAndSave.swift */,
 			);
 			path = Combined;
 			sourceTree = "<group>";
@@ -349,13 +351,14 @@
 		2D7EDF0624DC261600E7BFDD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				2D7EDF0B24DC2AEE00E7BFDD /* ModelPresenter.swift */,
+				2D60689D24DD6E7500768799 /* Queues.swift */,
 				2D7EDEFD24DC00B100E7BFDD /* RetryController.swift */,
 				2D7EDF0424DC205F00E7BFDD /* LoadableView */,
 				2D7EDF0324DC203000E7BFDD /* Operations */,
 				2D7EDED024DAE99D00E7BFDD /* Reachability */,
 				2D7EDEC424DAE0A700E7BFDD /* UIView */,
 				2D7EDEC024DAE0A700E7BFDD /* UIViewController */,
-				2D7EDF0B24DC2AEE00E7BFDD /* ModelPresenter.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -493,7 +496,6 @@
 				2D7EDECC24DAE0A700E7BFDD /* UIView+Embedding.swift in Sources */,
 				2D7EDEFE24DC00B100E7BFDD /* RetryController.swift in Sources */,
 				2D7EDEEA24DB096000E7BFDD /* UserListItemCell.swift in Sources */,
-				2D7EDE6C24DA66F000E7BFDD /* HTTPService+Image.swift in Sources */,
 				2D7EDE7824DA731D00E7BFDD /* HTTPService+UserProfile.swift in Sources */,
 				2D7EDEF824DB2E3600E7BFDD /* CombinedService_Users_FetchAndSave.swift in Sources */,
 				2D7EDE4424DA660700E7BFDD /* AppDelegate.swift in Sources */,
@@ -503,6 +505,7 @@
 				2D7EDE9424DA9C8000E7BFDD /* HTTPService.swift in Sources */,
 				2D7EDE6E24DA677F00E7BFDD /* HTTPServiceError.swift in Sources */,
 				2D7EDED624DAEA5B00E7BFDD /* Reachability.swift in Sources */,
+				2D60689A24DD561C00768799 /* HTTPService_Image_Fetch.swift in Sources */,
 				2D7EDEFC24DB4EA200E7BFDD /* CoreDataService_AllRecords_Purge.swift in Sources */,
 				2D7EDEF424DB27FF00E7BFDD /* CoreDataService_Users_Save.swift in Sources */,
 				2D7EDEF624DB2E0D00E7BFDD /* CombinedService.swift in Sources */,
@@ -510,10 +513,11 @@
 				2D7EDE7424DA6B2000E7BFDD /* RawUserListItem.swift in Sources */,
 				2D7EDF0C24DC2AEE00E7BFDD /* ModelPresenter.swift in Sources */,
 				2D7EDE8824DA86DA00E7BFDD /* CoreDataStack.swift in Sources */,
+				2D60689E24DD6E7500768799 /* Queues.swift in Sources */,
 				2D7EDE7624DA6B8100E7BFDD /* HTTPMethod.swift in Sources */,
 				2D7EDE8E24DA8E7E00E7BFDD /* UserListItem.swift in Sources */,
 				2D7EDEC924DAE0A700E7BFDD /* UIViewController+InterfaceBuilder.swift in Sources */,
-				2D7EDE7024DA691C00E7BFDD /* HTTPService+UserList.swift in Sources */,
+				2D60689824DD426500768799 /* CoreDataService_Image_Fetch.swift in Sources */,
 				2D7EDECB24DAE0A700E7BFDD /* UIView+InterfaceBuilder.swift in Sources */,
 				2D7EDEFA24DB325500E7BFDD /* ModelValidator.swift in Sources */,
 				2D7EDECA24DAE0A700E7BFDD /* UIViewController+Embedding.swift in Sources */,
@@ -526,11 +530,11 @@
 				2D7EDE7A24DA735200E7BFDD /* RawUserProfile.swift in Sources */,
 				2D7EDEE624DAF62F00E7BFDD /* HTTPService_Users_Fetch.swift in Sources */,
 				2D7EDEAC24DAD4FE00E7BFDD /* UserListView.swift in Sources */,
-				2D7EDE9624DACE8600E7BFDD /* CoreDataService+Image.swift in Sources */,
 				2D7EDEEC24DB0AFD00E7BFDD /* UserListItemCellDefault.swift in Sources */,
 				2D7EDE8424DA852600E7BFDD /* Model.xcdatamodeld in Sources */,
-				2D7EDE8C24DA8E0F00E7BFDD /* CoreDataService+UserList.swift in Sources */,
 				2D7EDE4624DA660700E7BFDD /* SceneDelegate.swift in Sources */,
+				2D60689624DD415800768799 /* CombinedService_Image_FetchAndSave.swift in Sources */,
+				2D60689C24DD58C700768799 /* CoreDataService_Image_Save.swift in Sources */,
 				2D7EDEBB24DAD6DC00E7BFDD /* LoadableViewState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

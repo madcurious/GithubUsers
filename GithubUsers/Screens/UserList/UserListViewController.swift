@@ -153,15 +153,15 @@ extension UserListViewController {
 				case .failure(let error):
 					self.showFailureView(forError: error)
 				case .success(_):
-					self.loadCachedResults()
+					self.loadSavedResults()
 				}
 			}
 		}
 	}
 	
-	/// Runs the fetch controller to load the cached results. If there are cached objects, they are displayed in a table view.
-	/// If there are no objects in the cache, the function proceeds to remotely fetch and locally cache the first batch of users.
-	func loadCachedResults() {
+	/// Runs the fetch controller to load the saved results. If there are saved objects, they are displayed in a table view.
+	/// If there are no objects saved in the cache, the function proceeds to remotely fetch and locally cache the first batch of users.
+	func loadSavedResults() {
 		do {
 			try runFetchController()
 			let objectCount = fetchController.fetchedObjects?.count ?? 0
@@ -170,7 +170,7 @@ extension UserListViewController {
 			} else {
 				let action = {
 					self.customView.state = .loading
-					self.remoteFetchAndLocalSaveFromZero()
+					self.fetchAndSaveFromZero()
 				}
 				retryController.set(action: action, name: RetryActionName.fetchFromZero.rawValue, parameter: 0)
 				action()
@@ -181,14 +181,14 @@ extension UserListViewController {
 	}
 	
 	/// Executes a remote fetch and local save for the first batch of users, and modifies view state according to the result.
-	func remoteFetchAndLocalSaveFromZero() {
+	func fetchAndSaveFromZero() {
 		// Avoid duplicate operations.
-		guard isCurrentlyRunningRemoteFetchAndLocalSave(since: 0) == false
+		guard isCurrentlyRunningFetchAndSave(since: 0) == false
 			else {
 				return
 		}
 		
-		let operation = CombinedService.Users.RemoteFetchAndLocalSave(since: 0, shouldPurgeCache: true) { (operation) in
+		let operation = CombinedService.Users.FetchAndSave(since: 0, shouldPurgeCache: true) { (operation) in
 			guard operation.isCancelled == false,
 				let result = operation.result
 				else {
@@ -220,16 +220,16 @@ extension UserListViewController {
 	
 	/// Executes a remote fetch and local save for the next batch of users. Modifies view state according to the result and the assumption
 	/// that the view was already displaying previous batches.
-	func remoteFetchAndLocalSaveNextPage() {
+	func fetchAndSaveNextPage() {
 		// Get the last user ID and ensure that the same operation isn't run more than once.
 		guard let lastUserID = fetchController.fetchedObjects?.last?.id,
-			isCurrentlyRunningRemoteFetchAndLocalSave(since: lastUserID) == false
+			isCurrentlyRunningFetchAndSave(since: lastUserID) == false
 			else {
 				return
 		}
 		let intUserID = Int(lastUserID)
 		let action = {
-			let operation = CombinedService.Users.RemoteFetchAndLocalSave(since: intUserID, shouldPurgeCache: false) { (operation) in
+			let operation = CombinedService.Users.FetchAndSave(since: intUserID, shouldPurgeCache: false) { (operation) in
 				guard operation.isCancelled == false,
 					let result = operation.result,
 					case .success(let lastUserID) = result
@@ -254,10 +254,10 @@ extension UserListViewController {
 	}
 	
 	/// Tells whether there is already a `CombinedService.Users.RemoteFetchAndLocalSave`for the `userID` in the internal queue.
-	func isCurrentlyRunningRemoteFetchAndLocalSave(since userID: Int64) -> Bool {
+	func isCurrentlyRunningFetchAndSave(since userID: Int64) -> Bool {
 		let userID = Int(userID)
 		return queue.operations.contains(where: {
-			if let operation = $0 as? CombinedService.Users.RemoteFetchAndLocalSave,
+			if let operation = $0 as? CombinedService.Users.FetchAndSave,
 				operation.userID == userID {
 				return true
 			}
