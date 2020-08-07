@@ -13,8 +13,8 @@ import CoreData
 class UserListViewController: UIViewController {
 	
 	enum RetryActionName: String {
-		case remoteFetchAndLocalSaveFromZero
-		case remoteFetchAndLocalSaveNextPage
+		case fetchFromZero
+		case fetchNextPage
 	}
 	
 	/// The main view, set in Main.storyboard.
@@ -87,7 +87,7 @@ fileprivate extension UserListViewController {
 	/// Shows the view for displaying errors.
 	func showFailureView(forError error: Error) {
 		customView.informationLabel.text = error.localizedDescription
-		customView.actionButton.isHidden = retryController.hasMarkedAction == false
+		customView.actionButton.isHidden = retryController.hasRetriableAction == false
 		customView.showMoreIndicator(false)
 		customView.state = .failure
 	}
@@ -172,7 +172,7 @@ extension UserListViewController {
 					self.customView.state = .loading
 					self.remoteFetchAndLocalSaveFromZero()
 				}
-				retryController.set(action: action, name: RetryActionName.remoteFetchAndLocalSaveFromZero.rawValue, parameter: 0)
+				retryController.set(action: action, name: RetryActionName.fetchFromZero.rawValue, parameter: 0)
 				action()
 			}
 		} catch {
@@ -208,7 +208,7 @@ extension UserListViewController {
 						} else {
 							self.showNoUsersView()
 						}
-						self.retryController.release(name: RetryActionName.remoteFetchAndLocalSaveFromZero.rawValue, parameter: 0)
+						self.retryController.release(name: RetryActionName.fetchFromZero.rawValue, parameter: 0)
 					} catch {
 						self.showFailureView(forError: error)
 					}
@@ -227,22 +227,29 @@ extension UserListViewController {
 			else {
 				return
 		}
-		
 		let intUserID = Int(lastUserID)
 		let action = {
 			let operation = CombinedService.Users.RemoteFetchAndLocalSave(since: intUserID, shouldPurgeCache: false) { (operation) in
-				if operation.isCancelled == false,
+				guard operation.isCancelled == false,
 					let result = operation.result,
-					case .success(let lastUserID) = result {
-					DispatchQueue.main.async {
-						self.retryController.release(name: "remoteFetchAndLocalSave", parameter: intUserID)
-						self.customView.showMoreIndicator(lastUserID != nil)
+					case .success(let lastUserID) = result
+					else {
+						return
+				}
+				DispatchQueue.main.async {
+					if lastUserID == nil {
+						self.customView.showMoreIndicator(false)
+						return
 					}
+					self.retryController.release(name: RetryActionName.fetchNextPage.rawValue, parameter: intUserID)
+					try? self.runFetchController() // ignore errors
+					self.customView.tableView.reloadData()
+					self.customView.showMoreIndicator(lastUserID != nil)
 				}
 			}
 			self.queue.addOperation(operation)
 		}
-		retryController.set(action: action, name: "remoteFetchAndLocalSave", parameter: intUserID)
+		retryController.set(action: action, name: RetryActionName.fetchNextPage.rawValue, parameter: intUserID)
 		action()
 	}
 	

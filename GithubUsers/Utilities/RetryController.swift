@@ -14,7 +14,7 @@ class RetryController {
 	fileprivate var name: String?
 	fileprivate var parameter: Int?
 	
-	var hasMarkedAction: Bool {
+	var hasRetriableAction: Bool {
 		return action != nil
 	}
 	

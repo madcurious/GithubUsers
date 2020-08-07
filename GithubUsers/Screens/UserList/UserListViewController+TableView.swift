@@ -57,10 +57,10 @@ extension UserListViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if let numberOfObjects = fetchController?.fetchedObjects?.count,
-			indexPath.row == numberOfObjects - fetchThreshold {
-//			currentRetriableAction = fetchNextBatch
-//			fetchNextBatch()
-			
+			indexPath.row == numberOfObjects - fetchThreshold,
+			let lastUserID = fetchController.fetchedObjects?.last?.id {
+			retryController.set(action: remoteFetchAndLocalSaveNextPage, name: RetryActionName.fetchNextPage.rawValue, parameter: Int(lastUserID))
+			remoteFetchAndLocalSaveNextPage()
 		}
 		
 		let type = cellType(at: indexPath)

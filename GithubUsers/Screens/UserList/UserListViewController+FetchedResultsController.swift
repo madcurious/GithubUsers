@@ -21,6 +21,7 @@ extension UserListViewController {
 			// Delete the cache.
 			NSFetchedResultsController<UserListItem>.deleteCache(withName: UserListViewController.cacheName)
 		}
+		CoreDataStack.shared.viewContext.reset()
 		try fetchController.performFetch()
 	}
 	

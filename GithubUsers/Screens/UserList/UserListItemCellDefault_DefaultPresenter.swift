@@ -23,10 +23,13 @@ extension UserListItemCellDefault {
 					view.avatarImageView.image = nil
 					view.headerLabel.text = nil
 					view.detailLabel.text = nil
+					currentImageUrlString = nil
 					return
 			}
+			
 			view.headerLabel.text = model.username
 			view.detailLabel.text = "Github user ID: \(model.id)"
+			currentImageUrlString = model.avatarURLString
 		}
 		
 	}
