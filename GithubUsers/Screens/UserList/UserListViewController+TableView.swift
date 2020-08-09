@@ -57,9 +57,7 @@ extension UserListViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if let numberOfObjects = fetchController?.fetchedObjects?.count,
-			indexPath.row == numberOfObjects - fetchThreshold,
-			let lastUserID = fetchController.fetchedObjects?.last?.id {
-			retryController.set(action: fetchAndSaveNextPage, name: RetryActionName.fetchNextPage.rawValue, parameter: Int(lastUserID))
+			indexPath.row == numberOfObjects - fetchThreshold {
 			fetchAndSaveNextPage()
 		}
 		

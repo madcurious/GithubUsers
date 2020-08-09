@@ -32,33 +32,32 @@ extension UserListItemCellDefault {
 			
 			if let urlString = model.avatarURLString {
 				currentImageUrlString = urlString
-				loadImage(urlString: urlString, view: view)
-			}
-		}
-		
-		func loadImage(urlString: String, view: UserListItemCellDefault) {
-			if let image = DefaultPresenter.fetchImageFromCache(urlString: urlString, context: CoreDataStack.shared.viewContext) {
-				view.avatarImageView.image = image
-				return
+				if let image = DefaultPresenter.fetchImageFromCache(urlString: urlString, context: CoreDataStack.shared.viewContext) {
+					view.avatarImageView.image = image
+				} else {
+					fetchImageFromRemoteSource(urlString: urlString, view: view)
+				}
 			}
 			
+		}
+		
+		func fetchImageFromRemoteSource(urlString: String, view: UserListItemCellDefault) {
 			// If a combined operation for urlString already exists, do not continue.
 			if Queues.images.operations.contains(where: { ($0 as? CombinedService.Image.FetchAndSave)?.urlString == urlString }) {
 				return
 			}
 			
-			let operation = CombinedService.Image.FetchAndSave(
-				urlString: urlString,
-				urlSession: HTTPService.urlSession,
-				httpServiceQueue: Queues.http,
-				context: CoreDataStack.shared.newBackgroundContext(),
-				coreDataQueue: Queues.coreData) { (operation) in
+			let retryID = "\(CombinedService.self).\(CombinedService.Image.self).\(CombinedService.Image.FetchAndSave.self).\(urlString)"
+			let operation = CombinedService.Image.FetchAndSave(urlString: urlString) { (operation) in
 					guard let operation = operation as? CombinedService.Image.FetchAndSave,
 						operation.urlString == self.currentImageUrlString,
 						operation.isCancelled == false,
 						let result = operation.result,
 						case .success(let imageData) = result
 						else {
+							RetryController.shared.mark(block: {
+								self.fetchImageFromRemoteSource(urlString: urlString, view: view)
+							}, identifier: retryID)
 							return
 					}
 					DispatchQueue.main.async {

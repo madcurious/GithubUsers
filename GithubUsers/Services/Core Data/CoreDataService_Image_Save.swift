@@ -14,32 +14,37 @@ extension CoreDataService.Image {
 		
 		let urlString: String
 		let imageData: Data
-		let context: NSManagedObjectContext
+		let persistentContainer: NSPersistentContainer
 		
-		init(urlString: String, imageData: Data, context: NSManagedObjectContext, completion: OperationCompletionBlock?) {
+		init(urlString: String, imageData: Data, persistentContainer: NSPersistentContainer, completion: OperationCompletionBlock?) {
 			self.urlString = urlString
 			self.imageData = imageData
-			self.context = context
+			self.persistentContainer = persistentContainer
 			super.init(completionBlock: completion)
 		}
 		
 		override func main() {
-			result = Save.execute(urlString: urlString, imageData: imageData, context: context)
+			result = Save.execute(urlString: urlString, imageData: imageData, context: persistentContainer.newBackgroundContext())
 		}
 		
 		class func execute(urlString: String, imageData: Data, context: NSManagedObjectContext) -> Save.ResultType {
-			guard let image = NSEntityDescription.insertNewObject(forEntityName: String(describing: Image.self), into: context) as? Image
-				else {
-					return .failure(CoreDataServiceError.failedCast(NSManagedObject.self, Image.self))
+			var result: Save.ResultType!
+			context.performAndWait {
+				guard let image = NSEntityDescription.insertNewObject(forEntityName: String(describing: Image.self), into: context) as? Image
+					else {
+						result = .failure(CoreDataServiceError.failedCast(NSManagedObject.self, Image.self))
+						return
+				}
+				image.urlString = urlString
+				image.data = imageData
+				do {
+					try context.save()
+					result = .success(image.objectID)
+				} catch {
+					result = .failure(error)
+				}
 			}
-			image.urlString = urlString
-			image.data = imageData
-			do {
-				try context.save()
-				return .success(image.objectID)
-			} catch {
-				return .failure(error)
-			}
+			return result
 		}
 		
 	}

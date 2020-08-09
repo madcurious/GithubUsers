@@ -12,9 +12,20 @@ import CoreData
 // MARK: - Main class
 class UserListViewController: UIViewController {
 	
-	enum RetryActionName: String {
-		case fetchFromZero
-		case fetchNextPage
+	enum RetryID {
+		case fetchAndSaveInitial
+		case fetchAndSaveNextPageSince(_ userID: Int)
+		case refresh
+		func toString() -> String {
+			switch self {
+			case .fetchAndSaveInitial:
+				return "\(UserListViewController.self).fetchAndSaveInitial"
+			case .fetchAndSaveNextPageSince(let userID):
+				return "\(UserListViewController.self).fetchAndSaveNextPageSince.\(userID)"
+			case .refresh:
+				return "\(UserListViewController.self).refresh"
+			}
+		}
 	}
 	
 	/// The main view, set in Main.storyboard.
@@ -22,10 +33,6 @@ class UserListViewController: UIViewController {
 	
 	/// The `NSFetchedResultsController` that provides the list data.
 	var fetchController: NSFetchedResultsController<UserListItem>!
-	
-//	/// The action invoked by the retry button.
-//	var currentRetriableAction: (() -> Void)?
-	let retryController = RetryController()
 	
 	/// Indicates when to fetch the next batch of results over the network. If there are *n* currently loaded results,
 	/// the next batch is loaded when the cell at *n* minus the threshold is displayed.
@@ -49,10 +56,6 @@ class UserListViewController: UIViewController {
 		
 		// Set up target-action mechanisms.
 		customView.refreshControl.addTarget(self, action: #selector(handlePullOnRefreshControl), for: .valueChanged)
-		customView.actionButton.addTarget(self, action: #selector(handleTapOnActionButton), for: .touchUpInside)
-		
-		// Observe reachability changes.
-		NotificationCenter.default.addObserver(self, selector: #selector(handleReachabilityChangedNotification(notification:)), name: NSNotification.Name.reachabilityChanged, object: Reachability.shared)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -85,9 +88,8 @@ class UserListViewController: UIViewController {
 fileprivate extension UserListViewController {
 	
 	/// Shows the view for displaying errors.
-	func showFailureView(forError error: Error) {
+	func showFailureView(error: Error) {
 		customView.informationLabel.text = error.localizedDescription
-		customView.actionButton.isHidden = retryController.hasRetriableAction == false
 		customView.showMoreIndicator(false)
 		customView.state = .failure
 	}
@@ -95,7 +97,6 @@ fileprivate extension UserListViewController {
 	/// Shows the view for when there are no Github users.
 	func showNoUsersView() {
 		customView.informationLabel.text = "There are no Github users."
-		customView.actionButton.isHidden = true
 		customView.showMoreIndicator(false)
 		customView.state = .empty
 	}
@@ -113,30 +114,13 @@ fileprivate extension UserListViewController {
 // MARK: - Objective-C Action Selectors
 fileprivate extension UserListViewController {
 	
-	/// Invoked by the retry button to retry any retriable action.
-	@objc func handleTapOnActionButton() {
-		retryController.invoke()
-	}
-	
 	/// Invoked when the refresh control is triggered.
 	@objc func handlePullOnRefreshControl() {
-//		refreshList()
-	}
-	
-	/// Invoked when reachability changes.
-	@objc func handleReachabilityChangedNotification(notification: NSNotification) {
-		guard let sender = notification.object as? Reachability,
-			sender == Reachability.shared
-			else {
-				return
+		if customView.state != .success {
+			customView.refreshControl.endRefreshing()
+			return
 		}
-		let (networkStatus, requiresConnection) = (sender.currentReachabilityStatus(), sender.connectionRequired())
-		switch (networkStatus, requiresConnection) {
-		case (.ReachableViaWiFi, false), (.ReachableViaWWAN, false):
-			retryController.invoke()
-		default:
-			break
-		}
+		refresh()
 	}
 	
 }
@@ -151,7 +135,7 @@ extension UserListViewController {
 			DispatchQueue.main.async {
 				switch result {
 				case .failure(let error):
-					self.showFailureView(forError: error)
+					self.showFailureView(error: error)
 				case .success(_):
 					self.loadSavedResults()
 				}
@@ -168,20 +152,15 @@ extension UserListViewController {
 			if objectCount > 0 {
 				showSuccessView(hasMoreResults: true)
 			} else {
-				let action = {
-					self.customView.state = .loading
-					self.fetchAndSaveFromZero()
-				}
-				retryController.set(action: action, name: RetryActionName.fetchFromZero.rawValue, parameter: 0)
-				action()
+				makeInitialFetchAndSave()
 			}
 		} catch {
-			showFailureView(forError: error)
+			showFailureView(error: error)
 		}
 	}
 	
-	/// Executes a remote fetch and local save for the first batch of users, and modifies view state according to the result.
-	func fetchAndSaveFromZero() {
+	/// Executes the very first fetch-and-save in the lifetime of the app.
+	func makeInitialFetchAndSave() {
 		// Avoid duplicate operations.
 		guard isCurrentlyRunningFetchAndSave(since: 0) == false
 			else {
@@ -197,7 +176,8 @@ extension UserListViewController {
 			DispatchQueue.main.async {
 				switch result {
 				case .failure(let error):
-					self.showFailureView(forError: error)
+					RetryController.shared.mark(block: self.makeInitialFetchAndSave, identifier: RetryID.fetchAndSaveInitial.toString())
+					self.showFailureView(error: error)
 					
 				case .success(let lastUserID):
 					do {
@@ -208,13 +188,14 @@ extension UserListViewController {
 						} else {
 							self.showNoUsersView()
 						}
-						self.retryController.release(name: RetryActionName.fetchFromZero.rawValue, parameter: 0)
 					} catch {
-						self.showFailureView(forError: error)
+						self.showFailureView(error: error)
 					}
 				}
 			}
 		}
+		
+		self.customView.state = .loading
 		queue.addOperation(operation)
 	}
 	
@@ -227,74 +208,60 @@ extension UserListViewController {
 			else {
 				return
 		}
+		
 		let intUserID = Int(lastUserID)
-		let action = {
-			let operation = CombinedService.Users.FetchAndSave(since: intUserID, shouldPurgeCache: false) { (operation) in
+		let operation = CombinedService.Users.FetchAndSave(since: intUserID, shouldPurgeCache: false) { (operation) in
+			guard operation.isCancelled == false,
+				let result = operation.result,
+				case .success(let lastUserID) = result
+				else {
+					RetryController.shared.mark(block: self.fetchAndSaveNextPage, identifier: RetryID.fetchAndSaveNextPageSince(intUserID).toString())
+					return
+			}
+			DispatchQueue.main.async {
+				if lastUserID == nil {
+					self.customView.showMoreIndicator(false)
+					return
+				}
+				try? self.runFetchController() // ignore errors
+				self.customView.tableView.reloadData()
+				self.customView.showMoreIndicator(lastUserID != nil)
+			}
+		}
+		self.queue.addOperation(operation)
+	}
+	
+	/// Tells whether there is already a `CombinedService.Users.RemoteFetchAndLocalSave`for the `userID` in the internal queue.
+	func isCurrentlyRunningFetchAndSave(since userID: Int64) -> Bool {
+		let userID = Int(userID)
+		return queue.operations.contains(where: { ($0 as? CombinedService.Users.FetchAndSave)?.userID == userID })
+	}
+	
+	func refresh() {
+		if isCurrentlyRunningFetchAndSave(since: 0) {
+			return
+		}
+		
+		Queues.http.cancelAllOperations()
+		Queues.coreData.cancelAllOperations()
+		Queues.images.cancelAllOperations()
+		
+		let operation = CombinedService.Users.FetchAndSave(since: 0, shouldPurgeCache: true) { (operation) in
+			DispatchQueue.main.async {
+				self.customView.refreshControl.endRefreshing()
 				guard operation.isCancelled == false,
 					let result = operation.result,
 					case .success(let lastUserID) = result
 					else {
 						return
 				}
-				DispatchQueue.main.async {
-					if lastUserID == nil {
-						self.customView.showMoreIndicator(false)
-						return
-					}
-					self.retryController.release(name: RetryActionName.fetchNextPage.rawValue, parameter: intUserID)
-					try? self.runFetchController() // ignore errors
-					self.customView.tableView.reloadData()
-					self.customView.showMoreIndicator(lastUserID != nil)
-				}
+				RetryController.shared.reset() // clear all retry actions
+				try? self.runFetchController() // ignore errors
+				self.customView.tableView.reloadData()
+				self.customView.showMoreIndicator(lastUserID != nil)
 			}
-			self.queue.addOperation(operation)
 		}
-		retryController.set(action: action, name: RetryActionName.fetchNextPage.rawValue, parameter: intUserID)
-		action()
+		queue.addOperation(operation)
 	}
-	
-	/// Tells whether there is already a `CombinedService.Users.RemoteFetchAndLocalSave`for the `userID` in the internal queue.
-	func isCurrentlyRunningFetchAndSave(since userID: Int64) -> Bool {
-		let userID = Int(userID)
-		return queue.operations.contains(where: {
-			if let operation = $0 as? CombinedService.Users.FetchAndSave,
-				operation.userID == userID {
-				return true
-			}
-			return false
-		})
-	}
-	
-//	func refreshList() {
-//		if let ongoingOperation = MiscellaneousQueue.shared.operations.first(where: { $0 is GetUsersOperation }) as? GetUsersOperation,
-//			ongoingOperation.userId == 0 {
-//			return
-//		}
-//
-//		MiscellaneousQueue.shared.cancelAllOperations()
-//		Network.queue.cancelAllOperations()
-//		PersistentContainer.queue.cancelAllOperations()
-//		deleteFetchedResultsControllerCache()
-//
-//		let operation = GetUsersOperation(since: 0, shouldPurgeCache: true) { (operation) in
-//			DispatchQueue.main.async {
-//				self.customView.refreshControl.endRefreshing()
-//				guard operation.isCancelled == false,
-//					let result = operation.result,
-//					case .success(let lastUserID) = result
-//					else {
-//						return
-//				}
-//				if lastUserID == nil {
-//					self.showNoUsersView()
-//				} else {
-//					try? self.fetchedResultsController.performFetch()
-//					self.customView.showMoreIndicator(true)
-//					self.customView.tableView.reloadData()
-//				}
-//			}
-//		}
-//		MiscellaneousQueue.shared.addOperation(operation)
-//	}
 	
 }

@@ -2,45 +2,60 @@
 //  RetryController.swift
 //  GithubUsers
 //
-//  Created by Matthew Quiros on 8/6/20.
+//  Created by Matthew Quiros on 8/8/20.
 //  Copyright © 2020 Matthew Quiros. All rights reserved.
 //
 
 import Foundation
 
-class RetryController {
+class RetryController: NSObject {
 	
-	fileprivate var action: (() -> Void)?
-	fileprivate var name: String?
-	fileprivate var parameter: Int?
+	static let shared = RetryController()
 	
-	var hasRetriableAction: Bool {
-		return action != nil
+	/// The blocks waiting to be retried.
+	fileprivate var pending: [String : () -> Void]
+	
+	/// The parallel queue that runs all pending blocks once invoked.
+	fileprivate let runQueue: OperationQueue
+	
+	override init() {
+		pending = [:]
+		runQueue = OperationQueue()
+		super.init()
+		NotificationCenter.default.addObserver(self, selector: #selector(handleReachabilityChangedNotification(_:)), name: NSNotification.Name.reachabilityChanged, object: Reachability.shared)
 	}
 	
-	/// Sets the action as retriable.
-	/// - Parameters:
-	///		- action: The code to be retried.
-	///		- name: A string identifier for the action.
-	///		- parameter: An integer identifier for the action. Normally, this is an argument to the passed to the action that can
-	///				distinguish multiple invocations of it from each other.
-	func set(action: @escaping () -> Void, name: String, parameter: Int?) {
-		self.action = action
-		self.name = name
-		self.parameter = parameter
+	/// Sets a block as pending retrial.
+	func mark(block: @escaping () -> Void, identifier: String) {
+		pending[identifier] = block
 	}
 	
-	/// Forgets the currently set action if the name and parameter correspond to previous settings.
-	func release(name: String, parameter: Int?) {
-		if self.name == name && self.parameter == parameter {
-			action = nil
-			self.name = nil
-			self.parameter = nil
+	/// Resets the retry queue (e.g. when the user pulls to refresh) and cancels all ongoing operations.
+	func reset() {
+		runQueue.cancelAllOperations()
+		pending = [:]
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self)
+	}
+	
+	/// Invoked when reachability changes.
+	@objc func handleReachabilityChangedNotification(_ notification: NSNotification) {
+		guard let sender = notification.object as? Reachability,
+			sender == Reachability.shared
+			else {
+				return
 		}
-	}
-	
-	func invoke() {
-		action?()
+		let (networkStatus, requiresConnection) = (sender.currentReachabilityStatus(), sender.connectionRequired())
+		switch (networkStatus, requiresConnection) {
+		case (.ReachableViaWiFi, false), (.ReachableViaWWAN, false):
+			let operations = pending.map({ BlockOperation(block: $0.value) })
+			runQueue.addOperations(operations, waitUntilFinished: false)
+			pending = [:]
+		default:
+			break
+		}
 	}
 	
 }

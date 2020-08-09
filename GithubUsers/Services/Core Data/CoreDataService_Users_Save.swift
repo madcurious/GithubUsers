@@ -14,31 +14,36 @@ extension CoreDataService.Users {
 	class Save: Operation<Any?, Error> {
 		
 		let objects: [[String : Any]]
-		let context: NSManagedObjectContext
+		let persistentContainer: NSPersistentContainer
 		
 		/// Creates a new instance of a save operation.
 		/// - Parameters:
 		///		- objects: An array of `UserListItem` dictionary objects to be inserted by the batch request.
-		///		- context: The worker context that will execute the batch request.
+		///		- persistentContainer: The `NSPersistentContainer` that will create the background `NSManagedObjectContext` for this operation.
 		///		- completion: Executed when the operation finishes.
-		init(objects: [[String : Any]], context: NSManagedObjectContext, completion: OperationCompletionBlock?) {
+		init(objects: [[String : Any]], persistentContainer: NSPersistentContainer, completion: OperationCompletionBlock?) {
 			self.objects = objects
-			self.context = context
+			self.persistentContainer = persistentContainer
 			super.init(completionBlock: completion)
 		}
 		
 		override func main() {
+			let context = persistentContainer.newBackgroundContext()
 			result = Save.execute(objects: objects, context: context)
 		}
 		
 		class func execute(objects: [[String : Any]], context: NSManagedObjectContext) -> ResultType {
 			let request = NSBatchInsertRequest(entityName: String(describing: UserListItem.self), objects: objects)
-			do {
-				try context.execute(request)
-				return .success(nil)
-			} catch {
-				return .failure(error)
+			var result: ResultType!
+			context.performAndWait {
+				do {
+					try context.execute(request)
+					result = .success(nil)
+				} catch {
+					result = .failure(error)
+				}
 			}
+			return result
 		}
 		
 	}

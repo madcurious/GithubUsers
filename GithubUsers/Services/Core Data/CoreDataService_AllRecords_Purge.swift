@@ -13,18 +13,19 @@ extension CoreDataService.AllRecords {
 	/// Using batch deletes, deletes all records for all entities in the persistent store.
 	class Purge: Operation<Any?, Error> {
 		
-		let context: NSManagedObjectContext
+		let persistentContainer: NSPersistentContainer
 		
 		/// Creates a new instance.
 		/// - Parameters:
 		///		- context: The worker context that will execute the batch delete requests.
-		init(context: NSManagedObjectContext, completion: OperationCompletionBlock?) {
-			self.context = context
+		init(persistentContainer: NSPersistentContainer, completion: OperationCompletionBlock?) {
+			self.persistentContainer = persistentContainer
 			super.init(completionBlock: completion)
 		}
 		
 		override func main() {
 			do {
+				let context = persistentContainer.newBackgroundContext()
 				try Purge.execute(context: context)
 				result = .success(nil)
 			} catch {
@@ -39,8 +40,18 @@ extension CoreDataService.AllRecords {
 				NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Image.self))
 			]
 			for request in requests {
-				let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
-				try context.execute(deleteRequest)
+				var executeError: Error?
+				context.performAndWait {
+					do {
+						let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+						try context.execute(deleteRequest)
+					} catch {
+						executeError = error
+					}
+				}
+				if let error = executeError {
+					throw error
+				}
 			}
 		}
 		

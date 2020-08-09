@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D58187624DE6BB00075B3D8 /* RetryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D58187524DE6BB00075B3D8 /* RetryController.swift */; };
 		2D60689624DD415800768799 /* CombinedService_Image_FetchAndSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D60689524DD415800768799 /* CombinedService_Image_FetchAndSave.swift */; };
 		2D60689824DD426500768799 /* CoreDataService_Image_Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D60689724DD426500768799 /* CoreDataService_Image_Fetch.swift */; };
 		2D60689A24DD561C00768799 /* HTTPService_Image_Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D60689924DD561C00768799 /* HTTPService_Image_Fetch.swift */; };
@@ -61,7 +62,6 @@
 		2D7EDEF824DB2E3600E7BFDD /* CombinedService_Users_FetchAndSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDEF724DB2E3600E7BFDD /* CombinedService_Users_FetchAndSave.swift */; };
 		2D7EDEFA24DB325500E7BFDD /* ModelValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDEF924DB325500E7BFDD /* ModelValidator.swift */; };
 		2D7EDEFC24DB4EA200E7BFDD /* CoreDataService_AllRecords_Purge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDEFB24DB4EA200E7BFDD /* CoreDataService_AllRecords_Purge.swift */; };
-		2D7EDEFE24DC00B100E7BFDD /* RetryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDEFD24DC00B100E7BFDD /* RetryController.swift */; };
 		2D7EDF0C24DC2AEE00E7BFDD /* ModelPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDF0B24DC2AEE00E7BFDD /* ModelPresenter.swift */; };
 		2D7EDF0E24DC2C0D00E7BFDD /* UserListItemCellDefault_DefaultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDF0D24DC2C0D00E7BFDD /* UserListItemCellDefault_DefaultPresenter.swift */; };
 /* End PBXBuildFile section */
@@ -77,6 +77,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D58187524DE6BB00075B3D8 /* RetryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryController.swift; sourceTree = "<group>"; };
 		2D60689524DD415800768799 /* CombinedService_Image_FetchAndSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedService_Image_FetchAndSave.swift; sourceTree = "<group>"; };
 		2D60689724DD426500768799 /* CoreDataService_Image_Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService_Image_Fetch.swift; sourceTree = "<group>"; };
 		2D60689924DD561C00768799 /* HTTPService_Image_Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService_Image_Fetch.swift; sourceTree = "<group>"; };
@@ -137,7 +138,6 @@
 		2D7EDEF724DB2E3600E7BFDD /* CombinedService_Users_FetchAndSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedService_Users_FetchAndSave.swift; sourceTree = "<group>"; };
 		2D7EDEF924DB325500E7BFDD /* ModelValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelValidator.swift; sourceTree = "<group>"; };
 		2D7EDEFB24DB4EA200E7BFDD /* CoreDataService_AllRecords_Purge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService_AllRecords_Purge.swift; sourceTree = "<group>"; };
-		2D7EDEFD24DC00B100E7BFDD /* RetryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryController.swift; sourceTree = "<group>"; };
 		2D7EDF0B24DC2AEE00E7BFDD /* ModelPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPresenter.swift; sourceTree = "<group>"; };
 		2D7EDF0D24DC2C0D00E7BFDD /* UserListItemCellDefault_DefaultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemCellDefault_DefaultPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -353,7 +353,7 @@
 			children = (
 				2D7EDF0B24DC2AEE00E7BFDD /* ModelPresenter.swift */,
 				2D60689D24DD6E7500768799 /* Queues.swift */,
-				2D7EDEFD24DC00B100E7BFDD /* RetryController.swift */,
+				2D58187524DE6BB00075B3D8 /* RetryController.swift */,
 				2D7EDF0424DC205F00E7BFDD /* LoadableView */,
 				2D7EDF0324DC203000E7BFDD /* Operations */,
 				2D7EDED024DAE99D00E7BFDD /* Reachability */,
@@ -494,7 +494,6 @@
 				2D7EDEC824DAE0A700E7BFDD /* UIViewController+ModalTransitioning.swift in Sources */,
 				2D7EDEB224DAD4FE00E7BFDD /* UserListViewController.swift in Sources */,
 				2D7EDECC24DAE0A700E7BFDD /* UIView+Embedding.swift in Sources */,
-				2D7EDEFE24DC00B100E7BFDD /* RetryController.swift in Sources */,
 				2D7EDEEA24DB096000E7BFDD /* UserListItemCell.swift in Sources */,
 				2D7EDE7824DA731D00E7BFDD /* HTTPService+UserProfile.swift in Sources */,
 				2D7EDEF824DB2E3600E7BFDD /* CombinedService_Users_FetchAndSave.swift in Sources */,
@@ -524,6 +523,7 @@
 				2D7EDECD24DAE0A700E7BFDD /* UIView+TreeTraversal.swift in Sources */,
 				2D7EDED424DAE99E00E7BFDD /* Reachability.m in Sources */,
 				2D7EDE9224DA97B000E7BFDD /* CoreDataService+UserProfile.swift in Sources */,
+				2D58187624DE6BB00075B3D8 /* RetryController.swift in Sources */,
 				2D7EDEF024DB243E00E7BFDD /* Operation.swift in Sources */,
 				2D7EDE7224DA69B800E7BFDD /* GithubAPI.swift in Sources */,
 				2D7EDEB324DAD4FE00E7BFDD /* UserListFooterView.swift in Sources */,

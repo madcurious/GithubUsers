@@ -15,18 +15,31 @@ extension CombinedService.Image {
 		let urlString: String
 		let urlSession: URLSession
 		let httpServiceQueue: OperationQueue
-		let context: NSManagedObjectContext
 		let coreDataQueue: OperationQueue
+		let persistentContainer: NSPersistentContainer
 		
-		var fetchOperation: HTTPService.Image.Fetch?
-		var saveOperation: CoreDataService.Image.Save?
+		fileprivate(set) var fetchOperation: HTTPService.Image.Fetch?
+		fileprivate(set) var saveOperation: CoreDataService.Image.Save?
 		
-		init(urlString: String, urlSession: URLSession, httpServiceQueue: OperationQueue, context: NSManagedObjectContext, coreDataQueue: OperationQueue, completion: OperationCompletionBlock?) {
+		/// Creates an instance of the operation.
+		/// - Parameters:
+		///		- urlString: The remote location from which to fetch the image.
+		///		- urlSession: The `URLSession` object to create the data task.
+		///		- httpServiceQueue: The `OperationQueue` to which the underlying HTTP service is dispatched.
+		///		- coreDataQueue: The `OperationQueue` to which the underlying Core Data service is dispatched.
+		///		- persistentContainer: The `NSPersistentContainer` which will create the background `NSManageObjectContext`.
+		///		- completion: The completion block.
+		init(urlString: String,
+				 urlSession: URLSession = HTTPService.urlSession,
+				 httpServiceQueue: OperationQueue = Queues.http,
+				 coreDataQueue: OperationQueue = Queues.coreData,
+				 persistentContainer: NSPersistentContainer = CoreDataStack.shared,
+				 completion: OperationCompletionBlock?) {
 			self.urlString = urlString
 			self.urlSession = urlSession
 			self.httpServiceQueue = httpServiceQueue
-			self.context = context
 			self.coreDataQueue = coreDataQueue
+			self.persistentContainer = persistentContainer
 			super.init(completionBlock: completion)
 		}
 		
@@ -52,7 +65,7 @@ extension CombinedService.Image {
 				result = .failure(error)
 				
 			case .success(let imageData):
-				let saveOperation = CoreDataService.Image.Save(urlString: urlString, imageData: imageData, context: context, completion: nil)
+				let saveOperation = CoreDataService.Image.Save(urlString: urlString, imageData: imageData, persistentContainer: persistentContainer, completion: nil)
 				self.saveOperation = saveOperation
 				coreDataQueue.addOperations([saveOperation], waitUntilFinished: true)
 				

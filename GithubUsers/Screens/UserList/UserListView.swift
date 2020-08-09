@@ -10,8 +10,6 @@ import UIKit
 
 @IBDesignable class UserListView: UIView, BasicLoadableView {
 	
-	@IBOutlet weak var actionButton: UIControl!
-	@IBOutlet weak var informationContainerView: UIView!
 	@IBOutlet weak var informationLabel: UILabel!
 	@IBOutlet weak var loadingView: UIActivityIndicatorView!
 	@IBOutlet weak var tableView: UITableView!

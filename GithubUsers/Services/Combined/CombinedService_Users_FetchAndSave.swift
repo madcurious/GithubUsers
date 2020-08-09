@@ -20,7 +20,7 @@ extension CombinedService.Users {
 		let urlSession: URLSession
 		let httpServiceQueue: OperationQueue
 		let coreDataQueue: OperationQueue
-		let context: NSManagedObjectContext
+		let persistentContainer: NSPersistentContainer
 		
 		weak var purgeService: CoreDataService.AllRecords.Purge?
 		weak var fetchService: HTTPService.Users.Fetch?
@@ -33,15 +33,21 @@ extension CombinedService.Users {
 		///		- urlSession: The `URLSession` to be used for the network request.
 		/// 	- httpServiceQueue: The queue to which the HTTP service will be dispatched.
 		/// 	- coreDataQueue: The queue to which the Core Data save operation will be dispatched.
-		///		- context: The `NSManagedObjectContext` to be used in creating and saving the cache objects.
+		/// 	- persistentContainer: The `NSPersistentContainer` to create all `NSManagedObjectContext`s necessary for the underlying Core Data services.
 		///		- completion: Executed when the operation finishes.
-		init(since userID: Int, shouldPurgeCache: Bool, urlSession: URLSession = HTTPService.urlSession, httpServiceQueue: OperationQueue = Queues.http, coreDataQueue: OperationQueue = Queues.coreData, context: NSManagedObjectContext = CoreDataStack.shared.newBackgroundContext(), completion: OperationCompletionBlock?) {
+		init(since userID: Int,
+				 shouldPurgeCache: Bool,
+				 urlSession: URLSession = HTTPService.urlSession,
+				 httpServiceQueue: OperationQueue = Queues.http,
+				 coreDataQueue: OperationQueue = Queues.coreData,
+				 persistentContainer: NSPersistentContainer = CoreDataStack.shared,
+				 completion: OperationCompletionBlock?) {
 			self.userID = userID
 			self.shouldPurgeCache = shouldPurgeCache
 			self.urlSession = urlSession
 			self.httpServiceQueue = httpServiceQueue
 			self.coreDataQueue = coreDataQueue
-			self.context = context
+			self.persistentContainer = persistentContainer
 			super.init(completionBlock: completion)
 		}
 		
@@ -71,7 +77,6 @@ extension CombinedService.Users {
 				if shouldPurgeCache {
 					do {
 						try purge()
-						context.refreshAllObjects()
 					} catch {
 						result = .failure(error)
 						return
@@ -85,7 +90,7 @@ extension CombinedService.Users {
 				}
 				
 				let objects = rawItems.map({ UserListItem.makeObjectDictionary(from: $0) })
-				let saveService = CoreDataService.Users.Save(objects: objects, context: context, completion: nil)
+				let saveService = CoreDataService.Users.Save(objects: objects, persistentContainer: persistentContainer, completion: nil)
 				self.saveService = saveService
 				coreDataQueue.addOperations([saveService], waitUntilFinished: true)
 				
@@ -106,7 +111,7 @@ extension CombinedService.Users {
 		}
 		
 		func purge() throws {
-			let purgeService = CoreDataService.AllRecords.Purge(context: context, completion: nil)
+			let purgeService = CoreDataService.AllRecords.Purge(persistentContainer: persistentContainer, completion: nil)
 			self.purgeService = purgeService
 			coreDataQueue.addOperations([purgeService], waitUntilFinished: true)
 			guard let result = purgeService.result
