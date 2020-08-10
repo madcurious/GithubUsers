@@ -20,11 +20,31 @@
                     <navigationItem key="navigationItem" title="Users" id="ixw-8v-RsI"/>
                     <connections>
                         <outlet property="customView" destination="8bC-Xf-vdC" id="aQo-gE-i2w"/>
+                        <segue destination="7in-AW-7BF" kind="show" identifier="kSegueToUserProfile" id="P3r-qp-zFb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="dMX-Xy-K5H">
+            <objects>
+                <viewController id="7in-AW-7BF" customClass="UserProfileViewController" customModule="GithubUsers" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="L3K-8i-KwY" customClass="UserProfileView" customModule="GithubUsers" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="fbE-ZN-Zfd"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Profile" id="dSN-KH-p4J"/>
+                    <connections>
+                        <outlet property="customView" destination="L3K-8i-KwY" id="O9J-V2-UN7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6eW-8q-sSf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1997" y="138"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="f4X-FU-OtR">

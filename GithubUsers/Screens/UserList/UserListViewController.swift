@@ -68,15 +68,15 @@ class UserListViewController: UIViewController {
 		}
 	}
 	
-//	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//		guard segue.identifier == Segues.toUserProfile,
-//			let userProfileVC = segue.destination as? UserProfileViewController,
-//			let indexPath = selectedIndexPath
-//			else {
-//				return
-//		}
-//		userProfileVC.username = fetchedResultsController.object(at: indexPath).username
-//	}
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		guard segue.identifier == "kSegueToUserProfile",
+			let userProfileVC = segue.destination as? UserProfileViewController,
+			let indexPath = selectedIndexPath
+			else {
+				return
+		}
+		userProfileVC.username = fetchController.object(at: indexPath).username
+	}
 	
 	deinit {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.reachabilityChanged, object: nil)
@@ -176,7 +176,7 @@ extension UserListViewController {
 			DispatchQueue.main.async {
 				switch result {
 				case .failure(let error):
-					RetryController.shared.mark(block: self.makeInitialFetchAndSave, identifier: RetryID.fetchAndSaveInitial.toString())
+					RetryController.shared.mark(identifier: RetryID.fetchAndSaveInitial.toString(), block: self.makeInitialFetchAndSave)
 					self.showFailureView(error: error)
 					
 				case .success(let lastUserID):
@@ -215,7 +215,7 @@ extension UserListViewController {
 				let result = operation.result,
 				case .success(let lastUserID) = result
 				else {
-					RetryController.shared.mark(block: self.fetchAndSaveNextPage, identifier: RetryID.fetchAndSaveNextPageSince(intUserID).toString())
+					RetryController.shared.mark(identifier: RetryID.fetchAndSaveNextPageSince(intUserID).toString(), block: self.fetchAndSaveNextPage)
 					return
 			}
 			DispatchQueue.main.async {

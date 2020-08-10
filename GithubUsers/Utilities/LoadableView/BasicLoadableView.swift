@@ -25,27 +25,31 @@ extension BasicLoadableView {
 		case .initial:
 			loadingView.stopAnimating()
 			loadingView.isHidden = true
+			informationLabel.isHidden = true
 			successView.isHidden = true
 
 		case .loading:
 			loadingView.startAnimating()
 			loadingView.isHidden = false
+			informationLabel.isHidden = true
 			successView.isHidden = true
 
 		case .empty:
 			loadingView.stopAnimating()
 			loadingView.isHidden = true
+			informationLabel.isHidden = false
 			successView.isHidden = true
 
 		case .success:
 			loadingView.stopAnimating()
 			loadingView.isHidden = true
+			informationLabel.isHidden = true
 			successView.isHidden = false
-			informationLabel.text = nil
 
 		case .failure:
 			loadingView.stopAnimating()
 			loadingView.isHidden = true
+			informationLabel.isHidden = false
 			successView.isHidden = true
 		}
 	}

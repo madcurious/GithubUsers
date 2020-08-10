@@ -1,34 +1,45 @@
 //
-//  UserListItemCellDefault_DefaultPresenter.swift
+//  UserProfileView_DefaultPresenter.swift
 //  GithubUsers
 //
-//  Created by Matthew Quiros on 8/6/20.
+//  Created by Matthew Quiros on 8/10/20.
 //  Copyright © 2020 Matthew Quiros. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-extension UserListItemCellDefault {
+extension UserProfileView {
 	
 	class DefaultPresenter: ModelPresenter {
 		
-		typealias ModelType = UserListItem
-		typealias ViewType = UserListItemCellDefault
+		typealias ModelType = UserProfile
+		typealias ViewType = UserProfileView
 		
 		var currentImageURLString: String?
 		
-		func present(_ model: UserListItem?, in view: UserListItemCellDefault) {
+		func present(_ model: UserProfile?, in view: UserProfileView) {
 			guard let model = model
 				else {
-					view.avatarImageView.image = nil
-					view.headerLabel.text = nil
-					view.detailLabel.text = nil
+					view.avatarImageView = nil
+					view.idLabel.text = nil
+					view.usernameLabel.text = nil
+					view.nameLabel.text = nil
+					view.followersLabel.text = nil
+					view.followingLabel.text = nil
+					view.descriptionLabel.text = nil
+					view.noteTextField.text = nil
 					currentImageURLString = nil
 					return
 			}
-			view.headerLabel.text = model.username
-			view.detailLabel.text = "Github user ID: \(model.id)"
+			
+			view.idLabel.text = String(format: "%d", model.id)
+			view.usernameLabel.text = model.username
+			view.nameLabel.text = model.fullName
+			view.followersLabel.text = String(format: "%d", model.followers)
+			view.followingLabel.text = String(format: "%d", model.following)
+			view.descriptionLabel.text = makeDescriptionText(for: model)
+			view.noteTextField.text = model.note
 			
 			guard let urlString = model.avatarURLString
 				else {
@@ -42,6 +53,21 @@ extension UserListItemCellDefault {
 			}
 		}
 		
+		func makeDescriptionText(for model: UserProfile) -> String {
+			switch (model.bio, model.company, model.location, model.joinDate) {
+			case (.some(let bio), _, _, _):
+				return bio
+			case (nil, .some(let company), _, _):
+				return "Works at \(company)"
+			case (nil, nil, .some(let location), _):
+				return "In \(location)"
+			case (nil, nil, nil, .some(let joinDate)):
+				return "Joined \(DateFormatter.shared.string(from: joinDate)))"
+			default:
+				return "Just another Github user"
+			}
+		}
+		
 		class func fetchImageFromCache(urlString: String, context: NSManagedObjectContext) -> UIImage? {
 			let fetchResult = CoreDataService.Image.Fetch.execute(urlString: urlString, context: context)
 			if case .success(let someData) = fetchResult,
@@ -51,7 +77,7 @@ extension UserListItemCellDefault {
 			return nil
 		}
 		
-		func fetchImageFromRemoteSource(urlString: String, view: UserListItemCellDefault) {
+		func fetchImageFromRemoteSource(urlString: String, view: UserProfileView) {
 			// If a combined operation for urlString already exists, do not continue.
 			if Queues.images.operations.contains(where: { ($0 as? CombinedService.Image.FetchAndSave)?.urlString == urlString }) {
 				return

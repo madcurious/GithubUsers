@@ -15,7 +15,7 @@ class UserListItemCellDefault: UITableViewCell, UserListItemCell {
 	@IBOutlet weak var headerLabel: UILabel!
 	@IBOutlet weak var detailLabel: UILabel!
 	
-	let presenter = DefaultPresenter()
+	var presenter = DefaultPresenter()
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -77,7 +77,7 @@ extension UserListViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		selectedIndexPath = indexPath
-//		performSegue(withIdentifier: Segues.toUserProfile, sender: self)
+		performSegue(withIdentifier: "kSegueToUserProfile", sender: self)
 	}
 	
 }

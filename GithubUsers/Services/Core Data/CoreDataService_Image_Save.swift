@@ -10,7 +10,7 @@ import CoreData
 
 extension CoreDataService.Image {
 	
-	class Save: Operation<NSManagedObjectID, Error> {
+	class Save: Operation<Any?, Error> {
 		
 		let urlString: String
 		let imageData: Data
@@ -39,7 +39,7 @@ extension CoreDataService.Image {
 				image.data = imageData
 				do {
 					try context.save()
-					result = .success(image.objectID)
+					result = .success(nil)
 				} catch {
 					result = .failure(error)
 				}

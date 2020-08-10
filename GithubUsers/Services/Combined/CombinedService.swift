@@ -14,4 +14,6 @@ class CombinedService {
 	
 	class Image { }
 	
+	class UserProfile { }
+	
 }

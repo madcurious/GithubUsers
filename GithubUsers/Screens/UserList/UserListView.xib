@@ -23,9 +23,8 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQA-GP-tND">
-                    <rect key="frame" x="20" y="437" width="374" height="20.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQA-GP-tND">
+                    <rect key="frame" x="20" y="443" width="374" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -40,8 +39,13 @@
                 <constraint firstItem="Q4j-4B-Bey" firstAttribute="leading" secondItem="OKp-J3-lM6" secondAttribute="leading" id="AnU-of-C06"/>
                 <constraint firstItem="brC-fD-tQ0" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="5" id="BTx-QD-3GM"/>
                 <constraint firstItem="brC-fD-tQ0" firstAttribute="centerX" secondItem="OKp-J3-lM6" secondAttribute="centerX" id="Bt0-2A-tsZ"/>
+                <constraint firstAttribute="trailingMargin" secondItem="FQA-GP-tND" secondAttribute="trailing" id="FzV-nb-20c"/>
+                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="FQA-GP-tND" secondAttribute="bottom" id="K1Z-gb-TSb"/>
                 <constraint firstAttribute="bottom" secondItem="Q4j-4B-Bey" secondAttribute="bottom" id="KZo-FO-RTT"/>
+                <constraint firstAttribute="leadingMargin" secondItem="FQA-GP-tND" secondAttribute="leading" id="M8a-UC-BZe"/>
+                <constraint firstItem="FQA-GP-tND" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="QP6-HQ-Afx"/>
                 <constraint firstItem="Q4j-4B-Bey" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="edu-Du-9nu"/>
+                <constraint firstItem="FQA-GP-tND" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerYWithinMargins" id="gaT-ax-cI2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="OKp-J3-lM6"/>
             <point key="canvasLocation" x="139" y="153"/>

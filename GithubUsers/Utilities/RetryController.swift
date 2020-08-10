@@ -26,7 +26,7 @@ class RetryController: NSObject {
 	}
 	
 	/// Sets a block as pending retrial.
-	func mark(block: @escaping () -> Void, identifier: String) {
+	func mark(identifier: String, block: @escaping () -> Void) {
 		pending[identifier] = block
 	}
 	
