@@ -39,18 +39,24 @@ class UserListItemCellPresenter: ModelPresenter {
 				return
 		}
 		currentImageURLString = urlString
-		if let image = UserListItemCellPresenter.fetchImageFromCache(urlString: urlString, context: CoreDataStack.shared.viewContext) {
-			view.avatarImageView.image = image
+		if let imageData = UserListItemCellPresenter.fetchImageFromCache(urlString: urlString, context: CoreDataStack.shared.viewContext) {
+			view.avatarImageView.image = makeFinalImage(from: imageData)
 		} else {
 			fetchImageFromRemoteSource(urlString: urlString, view: view)
 		}
 	}
 	
-	class func fetchImageFromCache(urlString: String, context: NSManagedObjectContext) -> UIImage? {
+	func makeFinalImage(from imageData: Data) -> UIImage? {
+		if invertsImageColors == true {
+			return invertImageColors(imageData: imageData)
+		}
+		return UIImage(data: imageData)
+	}
+	
+	class func fetchImageFromCache(urlString: String, context: NSManagedObjectContext) -> Data? {
 		let fetchResult = CoreDataService.Image.Fetch.execute(urlString: urlString, context: context)
-		if case .success(let someData) = fetchResult,
-			let data = someData {
-			return UIImage(data: data)
+		if case .success(let data) = fetchResult {
+			return data
 		}
 		return nil
 	}
@@ -63,22 +69,34 @@ class UserListItemCellPresenter: ModelPresenter {
 		
 		let retryID = "\(CombinedService.self).\(CombinedService.Image.self).\(CombinedService.Image.FetchAndSave.self).\(urlString)"
 		let operation = CombinedService.Image.FetchAndSave(urlString: urlString) { (operation) in
-				guard let operation = operation as? CombinedService.Image.FetchAndSave,
-					operation.urlString == self.currentImageURLString,
-					operation.isCancelled == false,
-					let result = operation.result,
-					case .success(let imageData) = result
-					else {
-						RetryController.shared.mark(identifier: retryID) {
-							self.fetchImageFromRemoteSource(urlString: urlString, view: view)
-						}
-						return
-				}
-				DispatchQueue.main.async {
-					view.avatarImageView.image = UIImage(data: imageData)
-				}
+			guard let operation = operation as? CombinedService.Image.FetchAndSave,
+				operation.urlString == self.currentImageURLString,
+				operation.isCancelled == false,
+				let result = operation.result,
+				case .success(let imageData) = result
+				else {
+					RetryController.shared.mark(identifier: retryID) {
+						self.fetchImageFromRemoteSource(urlString: urlString, view: view)
+					}
+					return
+			}
+			let finalImage = self.makeFinalImage(from: imageData)
+			DispatchQueue.main.async {
+				view.avatarImageView.image = finalImage
+			}
 		}
 		Queues.images.addOperation(operation)
+	}
+	
+	func invertImageColors(imageData: Data) -> UIImage? {
+		let ciImage = CIImage(data: imageData)
+		if let filter = CIFilter(name: "CIColorInvert") {
+			filter.setValue(ciImage, forKey: kCIInputImageKey)
+			if let result = filter.value(forKey: kCIOutputImageKey) as? CIImage {
+				return UIImage(ciImage: result)
+			}
+		}
+		return UIImage(data: imageData)
 	}
 	
 }

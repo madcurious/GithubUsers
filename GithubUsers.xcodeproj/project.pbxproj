@@ -68,6 +68,8 @@
 		2DBBE2CB24E19F4E009A1E51 /* UserListItemCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBE2CA24E19F4E009A1E51 /* UserListItemCellPresenter.swift */; };
 		2DBBE2CD24E1B1C7009A1E51 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBE2CC24E1B1C7009A1E51 /* UIImage.swift */; };
 		2DBBE2CF24E1B28E009A1E51 /* CoreDataService_Users_Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBE2CE24E1B28E009A1E51 /* CoreDataService_Users_Fetch.swift */; };
+		2DBBE2D124E1BDDD009A1E51 /* UserListItemCellInverted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBE2D024E1BDDD009A1E51 /* UserListItemCellInverted.swift */; };
+		2DBBE2D424E1C0B6009A1E51 /* UserListItemCellInvertedWithNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBE2D324E1C0B6009A1E51 /* UserListItemCellInvertedWithNote.swift */; };
 		2DF7149024E10A4000CB53F1 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF7148F24E10A4000CB53F1 /* UserProfileViewController.swift */; };
 		2DF7149224E10C7F00CB53F1 /* UserProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DF7149124E10C7F00CB53F1 /* UserProfileView.xib */; };
 		2DF7149424E10CA000CB53F1 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF7149324E10CA000CB53F1 /* UserProfileView.swift */; };
@@ -159,6 +161,8 @@
 		2DBBE2CA24E19F4E009A1E51 /* UserListItemCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemCellPresenter.swift; sourceTree = "<group>"; };
 		2DBBE2CC24E1B1C7009A1E51 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		2DBBE2CE24E1B28E009A1E51 /* CoreDataService_Users_Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService_Users_Fetch.swift; sourceTree = "<group>"; };
+		2DBBE2D024E1BDDD009A1E51 /* UserListItemCellInverted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemCellInverted.swift; sourceTree = "<group>"; };
+		2DBBE2D324E1C0B6009A1E51 /* UserListItemCellInvertedWithNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemCellInvertedWithNote.swift; sourceTree = "<group>"; };
 		2DF7148F24E10A4000CB53F1 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		2DF7149124E10C7F00CB53F1 /* UserProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileView.xib; sourceTree = "<group>"; };
 		2DF7149324E10CA000CB53F1 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
@@ -258,19 +262,14 @@
 		2D7EDE9724DAD4FE00E7BFDD /* UserList */ = {
 			isa = PBXGroup;
 			children = (
+				2DBBE2D224E1BEC6009A1E51 /* Cells */,
 				2D7EDEA524DAD4FE00E7BFDD /* UserListFooterView.swift */,
 				2D7EDE9B24DAD4FE00E7BFDD /* UserListFooterView.xib */,
-				2D7EDEE924DB096000E7BFDD /* UserListItemCell.swift */,
-				2D7EDEEB24DB0AFD00E7BFDD /* UserListItemCellDefault.swift */,
-				2D7EDEF124DB246900E7BFDD /* UserListItemCellDefault.xib */,
 				2D7EDE9E24DAD4FE00E7BFDD /* UserListView.swift */,
 				2D7EDEBC24DAD75500E7BFDD /* UserListView.xib */,
 				2D7EDEA424DAD4FE00E7BFDD /* UserListViewController.swift */,
 				2D7EDEA324DAD4FE00E7BFDD /* UserListViewController+FetchedResultsController.swift */,
 				2D7EDE9F24DAD4FE00E7BFDD /* UserListViewController+TableView.swift */,
-				2DBBE2C424E19D6B009A1E51 /* UserListItemCellDefaultWithNote.swift */,
-				2DBBE2C624E19DF9009A1E51 /* UserListItemCellDefaultWithNote.xib */,
-				2DBBE2CA24E19F4E009A1E51 /* UserListItemCellPresenter.swift */,
 			);
 			path = UserList;
 			sourceTree = "<group>";
@@ -423,6 +422,21 @@
 			path = "Core Data";
 			sourceTree = "<group>";
 		};
+		2DBBE2D224E1BEC6009A1E51 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2D7EDEE924DB096000E7BFDD /* UserListItemCell.swift */,
+				2D7EDEEB24DB0AFD00E7BFDD /* UserListItemCellDefault.swift */,
+				2D7EDEF124DB246900E7BFDD /* UserListItemCellDefault.xib */,
+				2DBBE2C424E19D6B009A1E51 /* UserListItemCellDefaultWithNote.swift */,
+				2DBBE2C624E19DF9009A1E51 /* UserListItemCellDefaultWithNote.xib */,
+				2DBBE2D024E1BDDD009A1E51 /* UserListItemCellInverted.swift */,
+				2DBBE2CA24E19F4E009A1E51 /* UserListItemCellPresenter.swift */,
+				2DBBE2D324E1C0B6009A1E51 /* UserListItemCellInvertedWithNote.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		2DF7148E24E109FE00CB53F1 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,6 +559,7 @@
 				2D7EDE8A24DA8D3500E7BFDD /* CoreDataServiceError.swift in Sources */,
 				2DF7149824E1217000CB53F1 /* CombinedService_UserProfile_FetchAndSave.swift in Sources */,
 				2D7EDEAD24DAD4FE00E7BFDD /* UserListViewController+TableView.swift in Sources */,
+				2DBBE2D124E1BDDD009A1E51 /* UserListItemCellInverted.swift in Sources */,
 				2D7EDEDA24DAECED00E7BFDD /* Failable.swift in Sources */,
 				2D7EDEEF24DB243E00E7BFDD /* AsyncOperation.swift in Sources */,
 				2D7EDEC824DAE0A700E7BFDD /* UIViewController+ModalTransitioning.swift in Sources */,
@@ -579,6 +594,7 @@
 				2D7EDE8E24DA8E7E00E7BFDD /* UserListItem.swift in Sources */,
 				2D7EDEC924DAE0A700E7BFDD /* UIViewController+InterfaceBuilder.swift in Sources */,
 				2DF7149424E10CA000CB53F1 /* UserProfileView.swift in Sources */,
+				2DBBE2D424E1C0B6009A1E51 /* UserListItemCellInvertedWithNote.swift in Sources */,
 				2D60689824DD426500768799 /* CoreDataService_Image_Fetch.swift in Sources */,
 				2D7EDECB24DAE0A700E7BFDD /* UIView+InterfaceBuilder.swift in Sources */,
 				2DF7149A24E1241600CB53F1 /* HTTPService_UserProfile_Fetch.swift in Sources */,

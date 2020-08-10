@@ -12,7 +12,7 @@ extension CoreDataService.Image {
 	
 	class Fetch: Operation<Data?, Error> {
 		
-		class func execute(urlString: String, context: NSManagedObjectContext) -> Fetch.ResultType {
+		class func execute(urlString: String, context: NSManagedObjectContext) -> Result<Data?, Error> {
 			let fetchRequest: NSFetchRequest<Image> = Image.fetchRequest()
 			fetchRequest.predicate = NSPredicate(format: "%K = %@", #keyPath(Image.urlString), urlString)
 			do {

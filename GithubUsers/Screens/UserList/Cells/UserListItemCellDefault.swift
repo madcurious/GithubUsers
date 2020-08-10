@@ -15,7 +15,7 @@ class UserListItemCellDefault: UITableViewCell, UserListItemCell {
 	@IBOutlet weak var headerLabel: UILabel!
 	@IBOutlet weak var detailLabel: UILabel!
 	
-	let presenter = UserListItemCellPresenter(invertsImageColors: false)
+	var presenter = UserListItemCellPresenter(invertsImageColors: false)
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,7 +28,7 @@ class UserListItemCellDefault: UITableViewCell, UserListItemCell {
 	}
 	
 	func setupStructure() {
-		let viewFromNib = viewFromOwnedNib(named: String(describing: type(of: self)))
+		let viewFromNib = viewFromOwnedNib(named: String(describing: UserListItemCellDefault.self))
 		contentView.addSubviewAndFill(viewFromNib)
 	}
 	

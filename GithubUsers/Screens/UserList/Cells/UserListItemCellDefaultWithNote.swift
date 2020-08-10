@@ -15,7 +15,7 @@ import UIKit
 	@IBOutlet weak var detailLabel: UILabel!
 	@IBOutlet weak var iconImageView: UIImageView!
 	
-	let presenter = UserListItemCellPresenter(invertsImageColors: false)
+	var presenter = UserListItemCellPresenter(invertsImageColors: false)
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -41,7 +41,7 @@ import UIKit
 fileprivate extension UserListItemCellDefaultWithNote {
 	
 	func setupStructure() {
-		let viewFromNib = viewFromOwnedNib(named: String(describing: type(of: self)))
+		let viewFromNib = viewFromOwnedNib(named: String(describing: UserListItemCellDefaultWithNote.self))
 		contentView.addSubviewAndFill(viewFromNib)
 		iconImageView.image = UIImage.template(named: "iconNote")
 		iconImageView.tintColor = .systemGray2
