@@ -25,8 +25,8 @@ class UserProfileViewController: UIViewController {
 		addTapGestureForDismissingKeyboard()
 	}
 	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 		if hasAppearedBefore == false {
 			begin()
 			hasAppearedBefore = true
@@ -36,6 +36,9 @@ class UserProfileViewController: UIViewController {
 	deinit {
 		customView.saveButton.removeTarget(self, action: #selector(handleTapOnSaveButton(_:)), for: .touchUpInside)
 		NotificationCenter.default.removeObserver(self)
+		if let username = username {
+			RetryController.shared.remove(identifier: makeRetryID(username: username))
+		}
 	}
 	
 }
@@ -75,6 +78,10 @@ fileprivate extension UserProfileViewController {
 	func addTapGestureForDismissingKeyboard() {
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOnView(_:)))
 		view.addGestureRecognizer(tapGesture)
+	}
+	
+	func makeRetryID(username: String) -> String {
+		return "\(UserProfileViewController.self).\(#function).\(username)"
 	}
 	
 }
@@ -121,7 +128,6 @@ fileprivate extension UserProfileViewController {
 			else {
 				return
 		}
-		
 		customView.state = .loading
 		do {
 			if let userProfile = try fetchUserProfileFromCoreData(username: username) {
@@ -145,7 +151,7 @@ fileprivate extension UserProfileViewController {
 	}
 	
 	func fetchUserProfileFromNetwork(username: String) {
-		let retryID = "\(UserProfileViewController.self).\(#function).\(username)"
+		let retryID = makeRetryID(username: username)
 		let operation = CombinedService.UserProfile.FetchAndSave(username: username) { (operation) in
 			guard operation.isCancelled == false,
 				let result = operation.result
@@ -157,7 +163,9 @@ fileprivate extension UserProfileViewController {
 				case .failure(let error):
 					self.showFailureView(forError: error)
 					RetryController.shared.mark(identifier: retryID) {
-						self.fetchUserProfileFromNetwork(username: username)
+						DispatchQueue.main.async {
+							self.fetchUserProfileFromNetwork(username: username)
+						}
 					}
 				case .success(let objectID):
 					let userProfile = CoreDataStack.shared.viewContext.object(with: objectID) as? UserProfile
@@ -171,34 +179,35 @@ fileprivate extension UserProfileViewController {
 	}
 	
 	func saveNoteInTextField() {
-//		guard let username = username
-//			else {
-//				return
-//		}
-//		let saveContext = PersistentContainer.shared.newBackgroundContext()
-//		let note: String? = {
-//			if let text = customView.noteTextField.text,
-//				text.trim().isEmpty {
-//				return nil
-//			}
-//			return customView.noteTextField.text?.trim()
-//		}()
-//		let saveOperation = SaveNoteCoreDataOperation(context: saveContext, username: username, note: note) { (operation) in
-//			guard operation.isCancelled == false,
-//				let result = operation.result
-//				else {
-//					return
-//			}
-//			DispatchQueue.main.async {
-//				switch result {
-//				case .failure(let error):
-//					self.showDialog(forError: error)
-//				case .success(_):
-//					self.showDialogForSuccessfulSave()
-//				}
-//			}
-//		}
-//		PersistentContainer.queue.addOperation(saveOperation)
+		guard let username = username
+			else {
+				return
+		}
+		
+		let note: String? = {
+			if let text = customView.noteTextField.text,
+				text.trim().isEmpty {
+				return nil
+			}
+			return customView.noteTextField.text?.trim()
+		}()
+		
+		let operation = CoreDataService.UserProfile.SaveNote(username: username, note: note, persistentContainer: CoreDataStack.shared) { (operation) in
+			guard operation.isCancelled == false,
+				let result = operation.result
+				else {
+					return
+			}
+			DispatchQueue.main.async {
+				switch result {
+				case .failure(let error):
+					self.showDialog(forError: error)
+				case .success(_):
+					self.showDialogForSuccessfulSave()
+				}
+			}
+		}
+		queue.addOperation(operation)
 	}
 	
 }

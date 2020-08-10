@@ -18,22 +18,38 @@ class RetryController: NSObject {
 	/// The parallel queue that runs all pending blocks once invoked.
 	fileprivate let runQueue: OperationQueue
 	
+	fileprivate let accessQueue: OperationQueue
+	
 	override init() {
 		pending = [:]
 		runQueue = OperationQueue()
+		accessQueue = OperationQueue()
 		super.init()
+		accessQueue.maxConcurrentOperationCount = 1
 		NotificationCenter.default.addObserver(self, selector: #selector(handleReachabilityChangedNotification(_:)), name: NSNotification.Name.reachabilityChanged, object: Reachability.shared)
 	}
 	
 	/// Sets a block as pending retrial.
 	func mark(identifier: String, block: @escaping () -> Void) {
-		pending[identifier] = block
+		accessQueue.addOperation {
+			self.pending[identifier] = block
+		}
+	}
+	
+	/// Removes a block from being pending to be retried.
+	func remove(identifier: String) {
+		accessQueue.addOperation {
+			self.pending.removeValue(forKey: identifier)
+		}
 	}
 	
 	/// Resets the retry queue (e.g. when the user pulls to refresh) and cancels all ongoing operations.
 	func reset() {
 		runQueue.cancelAllOperations()
-		pending = [:]
+		accessQueue.cancelAllOperations()
+		accessQueue.addOperation {
+			self.pending = [:]
+		}
 	}
 	
 	deinit {
@@ -52,7 +68,9 @@ class RetryController: NSObject {
 		case (.ReachableViaWiFi, false), (.ReachableViaWWAN, false):
 			let operations = pending.map({ BlockOperation(block: $0.value) })
 			runQueue.addOperations(operations, waitUntilFinished: false)
-			pending = [:]
+			accessQueue.addOperation {
+				self.pending = [:]
+			}
 		default:
 			break
 		}

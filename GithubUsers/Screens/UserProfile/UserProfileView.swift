@@ -60,7 +60,8 @@ fileprivate extension UserProfileView {
 	func setupStructure() {
 		let viewFromNib = viewFromOwnedNib()
 		addSubviewAndFill(viewFromNib)
-		successView = viewFromNib
+		successView = scrollView
+		state = .loading
 	}
 	
 }

@@ -40,12 +40,12 @@
                 <constraint firstItem="brC-fD-tQ0" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="5" id="BTx-QD-3GM"/>
                 <constraint firstItem="brC-fD-tQ0" firstAttribute="centerX" secondItem="OKp-J3-lM6" secondAttribute="centerX" id="Bt0-2A-tsZ"/>
                 <constraint firstAttribute="trailingMargin" secondItem="FQA-GP-tND" secondAttribute="trailing" id="FzV-nb-20c"/>
-                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="FQA-GP-tND" secondAttribute="bottom" id="K1Z-gb-TSb"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FQA-GP-tND" secondAttribute="bottom" id="K1Z-gb-TSb"/>
                 <constraint firstAttribute="bottom" secondItem="Q4j-4B-Bey" secondAttribute="bottom" id="KZo-FO-RTT"/>
                 <constraint firstAttribute="leadingMargin" secondItem="FQA-GP-tND" secondAttribute="leading" id="M8a-UC-BZe"/>
-                <constraint firstItem="FQA-GP-tND" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="QP6-HQ-Afx"/>
+                <constraint firstItem="FQA-GP-tND" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" id="QP6-HQ-Afx"/>
                 <constraint firstItem="Q4j-4B-Bey" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="edu-Du-9nu"/>
-                <constraint firstItem="FQA-GP-tND" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerYWithinMargins" id="gaT-ax-cI2"/>
+                <constraint firstItem="FQA-GP-tND" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="5.25" id="gaT-ax-cI2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="OKp-J3-lM6"/>
             <point key="canvasLocation" x="139" y="153"/>

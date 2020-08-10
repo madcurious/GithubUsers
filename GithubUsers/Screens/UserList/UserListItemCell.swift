@@ -11,6 +11,10 @@ import CoreData
 
 protocol UserListItemCell: UITableViewCell {
 	
+	var avatarImageView: UIImageView! { get set }
+	var headerLabel: UILabel! { get set }
+	var detailLabel: UILabel! { get set }
+	
 	func setUserListItem(_ model: UserListItem?)
 	
 }

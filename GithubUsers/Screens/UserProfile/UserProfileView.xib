@@ -285,10 +285,10 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="yOM-Ac-dZi" firstAttribute="leading" secondItem="g4A-XD-NOZ" secondAttribute="leading" id="1JG-9G-n7p"/>
-                <constraint firstItem="c09-6Q-Fqf" firstAttribute="centerY" secondItem="qeZ-Qu-eFe" secondAttribute="centerYWithinMargins" id="BhY-VG-VC4"/>
-                <constraint firstItem="UL9-7w-iZJ" firstAttribute="centerY" secondItem="qeZ-Qu-eFe" secondAttribute="centerYWithinMargins" id="Dyx-n9-Bnl"/>
-                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="UL9-7w-iZJ" secondAttribute="bottom" id="GoL-Bz-BIu"/>
-                <constraint firstItem="UL9-7w-iZJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qeZ-Qu-eFe" secondAttribute="topMargin" id="KWa-BB-5qw"/>
+                <constraint firstItem="c09-6Q-Fqf" firstAttribute="centerY" secondItem="qeZ-Qu-eFe" secondAttribute="centerY" constant="5" id="BhY-VG-VC4"/>
+                <constraint firstItem="UL9-7w-iZJ" firstAttribute="centerY" secondItem="qeZ-Qu-eFe" secondAttribute="centerY" constant="5.25" id="Dyx-n9-Bnl"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="UL9-7w-iZJ" secondAttribute="bottom" id="GoL-Bz-BIu"/>
+                <constraint firstItem="UL9-7w-iZJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qeZ-Qu-eFe" secondAttribute="top" id="KWa-BB-5qw"/>
                 <constraint firstItem="g4A-XD-NOZ" firstAttribute="bottom" secondItem="yOM-Ac-dZi" secondAttribute="bottom" id="Vtd-aL-ISi"/>
                 <constraint firstItem="g4A-XD-NOZ" firstAttribute="trailing" secondItem="yOM-Ac-dZi" secondAttribute="trailing" id="WvA-KT-QSm"/>
                 <constraint firstItem="c09-6Q-Fqf" firstAttribute="centerX" secondItem="qeZ-Qu-eFe" secondAttribute="centerXWithinMargins" id="c2T-oB-sJu"/>

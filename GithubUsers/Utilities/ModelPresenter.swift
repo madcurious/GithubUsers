@@ -11,7 +11,7 @@ import UIKit
 protocol ModelPresenter {
 	
 	associatedtype ModelType
-	associatedtype ViewType: UIView
+	associatedtype ViewType
 	
 	func present(_ model: ModelType?, in view: ViewType)
 	

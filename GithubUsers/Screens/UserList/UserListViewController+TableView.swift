@@ -22,14 +22,18 @@ extension UserListViewController {
 		customView.tableView.dataSource = self
 		customView.tableView.delegate = self
 		customView.tableView.register(UserListItemCellDefault.self, forCellReuseIdentifier: CellType.default.rawValue)
-//		customView.tableView.register(UserPreviewCellDefaultWithNote.self, forCellReuseIdentifier: CellType.defaultWithNote.rawValue)
+		customView.tableView.register(UserListItemCellDefaultWithNote.self, forCellReuseIdentifier: CellType.defaultWithNote.rawValue)
 //		customView.tableView.register(UserPreviewCellInverted.self, forCellReuseIdentifier: CellType.inverted.rawValue)
 //		customView.tableView.register(UserPreviewCellInvertedWithNote.self, forCellReuseIdentifier: CellType.invertedWithNote.rawValue)
 	}
 	
 	func cellType(at indexPath: IndexPath) -> CellType {
+		let hasNote = fetchController.object(at: indexPath).hasNote
+		if hasNote == true {
+			return .defaultWithNote
+		}
 		return .default
-//		let hasNote = fetchedResultsController.object(at: indexPath).hasNote
+		
 //		let isInverted = (indexPath.row + 1) % 4 == 0
 //		switch (hasNote, isInverted) {
 //		case (false, false):

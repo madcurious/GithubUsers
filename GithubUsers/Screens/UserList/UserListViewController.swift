@@ -176,7 +176,11 @@ extension UserListViewController {
 			DispatchQueue.main.async {
 				switch result {
 				case .failure(let error):
-					RetryController.shared.mark(identifier: RetryID.fetchAndSaveInitial.toString(), block: self.makeInitialFetchAndSave)
+					RetryController.shared.mark(identifier: RetryID.fetchAndSaveInitial.toString()) {
+						DispatchQueue.main.async {
+							self.makeInitialFetchAndSave()
+						}
+					}
 					self.showFailureView(error: error)
 					
 				case .success(let lastUserID):
