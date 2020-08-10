@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Manages the retrial of actions that require network connections.
 class RetryController: NSObject {
 	
 	static let shared = RetryController()
@@ -18,6 +19,7 @@ class RetryController: NSObject {
 	/// The parallel queue that runs all pending blocks once invoked.
 	fileprivate let runQueue: OperationQueue
 	
+	/// The serial queue for safely reading and writing the `pending` collection from multiple threads.
 	fileprivate let accessQueue: OperationQueue
 	
 	override init() {

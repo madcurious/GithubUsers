@@ -22,14 +22,12 @@
 		2D7EDE7224DA69B800E7BFDD /* GithubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE7124DA69B800E7BFDD /* GithubAPI.swift */; };
 		2D7EDE7424DA6B2000E7BFDD /* RawUserListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE7324DA6B2000E7BFDD /* RawUserListItem.swift */; };
 		2D7EDE7624DA6B8100E7BFDD /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE7524DA6B8100E7BFDD /* HTTPMethod.swift */; };
-		2D7EDE7824DA731D00E7BFDD /* HTTPService+UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE7724DA731D00E7BFDD /* HTTPService+UserProfile.swift */; };
 		2D7EDE7A24DA735200E7BFDD /* RawUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE7924DA735200E7BFDD /* RawUserProfile.swift */; };
 		2D7EDE8124DA84A900E7BFDD /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8024DA84A900E7BFDD /* CoreDataService.swift */; };
 		2D7EDE8424DA852600E7BFDD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8224DA852600E7BFDD /* Model.xcdatamodeld */; };
 		2D7EDE8824DA86DA00E7BFDD /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8724DA86DA00E7BFDD /* CoreDataStack.swift */; };
 		2D7EDE8A24DA8D3500E7BFDD /* CoreDataServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8924DA8D3500E7BFDD /* CoreDataServiceError.swift */; };
 		2D7EDE8E24DA8E7E00E7BFDD /* UserListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE8D24DA8E7E00E7BFDD /* UserListItem.swift */; };
-		2D7EDE9224DA97B000E7BFDD /* CoreDataService+UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9124DA97B000E7BFDD /* CoreDataService+UserProfile.swift */; };
 		2D7EDE9424DA9C8000E7BFDD /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9324DA9C8000E7BFDD /* HTTPService.swift */; };
 		2D7EDEA924DAD4FE00E7BFDD /* UserListFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9B24DAD4FE00E7BFDD /* UserListFooterView.xib */; };
 		2D7EDEAC24DAD4FE00E7BFDD /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EDE9E24DAD4FE00E7BFDD /* UserListView.swift */; };
@@ -70,6 +68,7 @@
 		2DBBE2CF24E1B28E009A1E51 /* CoreDataService_Users_Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBE2CE24E1B28E009A1E51 /* CoreDataService_Users_Fetch.swift */; };
 		2DBBE2D124E1BDDD009A1E51 /* UserListItemCellInverted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBE2D024E1BDDD009A1E51 /* UserListItemCellInverted.swift */; };
 		2DBBE2D424E1C0B6009A1E51 /* UserListItemCellInvertedWithNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBE2D324E1C0B6009A1E51 /* UserListItemCellInvertedWithNote.swift */; };
+		2DBBE2D924E1CBA8009A1E51 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBE2D824E1CBA8009A1E51 /* MockURLProtocol.swift */; };
 		2DF7149024E10A4000CB53F1 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF7148F24E10A4000CB53F1 /* UserProfileViewController.swift */; };
 		2DF7149224E10C7F00CB53F1 /* UserProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DF7149124E10C7F00CB53F1 /* UserProfileView.xib */; };
 		2DF7149424E10CA000CB53F1 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF7149324E10CA000CB53F1 /* UserProfileView.swift */; };
@@ -113,14 +112,12 @@
 		2D7EDE7124DA69B800E7BFDD /* GithubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPI.swift; sourceTree = "<group>"; };
 		2D7EDE7324DA6B2000E7BFDD /* RawUserListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawUserListItem.swift; sourceTree = "<group>"; };
 		2D7EDE7524DA6B8100E7BFDD /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		2D7EDE7724DA731D00E7BFDD /* HTTPService+UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPService+UserProfile.swift"; sourceTree = "<group>"; };
 		2D7EDE7924DA735200E7BFDD /* RawUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawUserProfile.swift; sourceTree = "<group>"; };
 		2D7EDE8024DA84A900E7BFDD /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		2D7EDE8324DA852600E7BFDD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		2D7EDE8724DA86DA00E7BFDD /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		2D7EDE8924DA8D3500E7BFDD /* CoreDataServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceError.swift; sourceTree = "<group>"; };
 		2D7EDE8D24DA8E7E00E7BFDD /* UserListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItem.swift; sourceTree = "<group>"; };
-		2D7EDE9124DA97B000E7BFDD /* CoreDataService+UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataService+UserProfile.swift"; sourceTree = "<group>"; };
 		2D7EDE9324DA9C8000E7BFDD /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		2D7EDE9B24DAD4FE00E7BFDD /* UserListFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListFooterView.xib; sourceTree = "<group>"; };
 		2D7EDE9E24DAD4FE00E7BFDD /* UserListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
@@ -163,6 +160,8 @@
 		2DBBE2CE24E1B28E009A1E51 /* CoreDataService_Users_Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService_Users_Fetch.swift; sourceTree = "<group>"; };
 		2DBBE2D024E1BDDD009A1E51 /* UserListItemCellInverted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemCellInverted.swift; sourceTree = "<group>"; };
 		2DBBE2D324E1C0B6009A1E51 /* UserListItemCellInvertedWithNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemCellInvertedWithNote.swift; sourceTree = "<group>"; };
+		2DBBE2D524E1C4F8009A1E51 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2DBBE2D824E1CBA8009A1E51 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		2DF7148F24E10A4000CB53F1 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		2DF7149124E10C7F00CB53F1 /* UserProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileView.xib; sourceTree = "<group>"; };
 		2DF7149324E10CA000CB53F1 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
@@ -197,6 +196,7 @@
 		2D7EDE3724DA660700E7BFDD = {
 			isa = PBXGroup;
 			children = (
+				2DBBE2D524E1C4F8009A1E51 /* README.md */,
 				2D7EDE4224DA660700E7BFDD /* GithubUsers */,
 				2D7EDE5924DA660900E7BFDD /* GithubUsersTests */,
 				2D7EDE4124DA660700E7BFDD /* Products */,
@@ -215,15 +215,15 @@
 		2D7EDE4224DA660700E7BFDD /* GithubUsers */ = {
 			isa = PBXGroup;
 			children = (
+				2D7EDED324DAE99D00E7BFDD /* GithubUsers-Bridging-Header.h */,
+				2D7EDE5124DA660900E7BFDD /* Info.plist */,
 				2D7EDE4324DA660700E7BFDD /* AppDelegate.swift */,
+				2D7EDE4524DA660700E7BFDD /* SceneDelegate.swift */,
 				2D7EDE4C24DA660900E7BFDD /* Assets.xcassets */,
 				2D7EDE7C24DA75C800E7BFDD /* Core Data */,
 				2D7EDF0924DC266900E7BFDD /* Data models */,
-				2D7EDED324DAE99D00E7BFDD /* GithubUsers-Bridging-Header.h */,
-				2D7EDE5124DA660900E7BFDD /* Info.plist */,
 				2D7EDE4E24DA660900E7BFDD /* LaunchScreen.storyboard */,
 				2D7EDE4924DA660700E7BFDD /* Main.storyboard */,
-				2D7EDE4524DA660700E7BFDD /* SceneDelegate.swift */,
 				2D7EDF0524DC209F00E7BFDD /* Screens */,
 				2D7EDEFF24DC1FCC00E7BFDD /* Services */,
 				2D7EDF0624DC261600E7BFDD /* Utilities */,
@@ -236,6 +236,7 @@
 			children = (
 				2D7EDE5C24DA660900E7BFDD /* Info.plist */,
 				2D7EDEE724DB078C00E7BFDD /* Test_HTTPService_Users_Fetch.swift */,
+				2DBBE2D824E1CBA8009A1E51 /* MockURLProtocol.swift */,
 			);
 			path = GithubUsersTests;
 			sourceTree = "<group>";
@@ -252,7 +253,6 @@
 		2D7EDE7C24DA75C800E7BFDD /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				2D7EDE9124DA97B000E7BFDD /* CoreDataService+UserProfile.swift */,
 				2D7EDE8724DA86DA00E7BFDD /* CoreDataStack.swift */,
 				2D7EDE8224DA852600E7BFDD /* Model.xcdatamodeld */,
 			);
@@ -322,7 +322,6 @@
 				2D60689924DD561C00768799 /* HTTPService_Image_Fetch.swift */,
 				2D7EDEE524DAF62F00E7BFDD /* HTTPService_Users_Fetch.swift */,
 				2D7EDE9324DA9C8000E7BFDD /* HTTPService.swift */,
-				2D7EDE7724DA731D00E7BFDD /* HTTPService+UserProfile.swift */,
 				2D7EDE6D24DA677F00E7BFDD /* HTTPServiceError.swift */,
 				2DF7149924E1241600CB53F1 /* HTTPService_UserProfile_Fetch.swift */,
 			);
@@ -566,7 +565,6 @@
 				2D7EDEB224DAD4FE00E7BFDD /* UserListViewController.swift in Sources */,
 				2D7EDECC24DAE0A700E7BFDD /* UIView+Embedding.swift in Sources */,
 				2D7EDEEA24DB096000E7BFDD /* UserListItemCell.swift in Sources */,
-				2D7EDE7824DA731D00E7BFDD /* HTTPService+UserProfile.swift in Sources */,
 				2D7EDEF824DB2E3600E7BFDD /* CombinedService_Users_FetchAndSave.swift in Sources */,
 				2D7EDE4424DA660700E7BFDD /* AppDelegate.swift in Sources */,
 				2DBBE2CD24E1B1C7009A1E51 /* UIImage.swift in Sources */,
@@ -604,7 +602,6 @@
 				2D7EDECD24DAE0A700E7BFDD /* UIView+TreeTraversal.swift in Sources */,
 				2DF714A424E172B800CB53F1 /* String.swift in Sources */,
 				2D7EDED424DAE99E00E7BFDD /* Reachability.m in Sources */,
-				2D7EDE9224DA97B000E7BFDD /* CoreDataService+UserProfile.swift in Sources */,
 				2D58187624DE6BB00075B3D8 /* RetryController.swift in Sources */,
 				2D7EDEF024DB243E00E7BFDD /* Operation.swift in Sources */,
 				2D7EDE7224DA69B800E7BFDD /* GithubAPI.swift in Sources */,
@@ -627,6 +624,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DBBE2D924E1CBA8009A1E51 /* MockURLProtocol.swift in Sources */,
 				2D7EDEE824DB078C00E7BFDD /* Test_HTTPService_Users_Fetch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
